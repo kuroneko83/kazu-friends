@@ -6,6 +6,22 @@ import linesPt from '../../content/lines.pt.json'
 interface Line {
   text: string
   character: string
+  /** per-value overrides for {n} lines where more than the numeral changes (e.g. singular noun at n=1) */
+  variants?: Record<string, string>
+}
+
+// Must mirror scripts/generate-tts.mjs
+const ptNumberWords = ['zero', 'um', 'dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove', 'dez', 'onze', 'doze', 'treze', 'catorze', 'quinze', 'dezesseis', 'dezessete', 'dezoito', 'dezenove', 'vinte']
+
+/**
+ * pt-BR TTS reads bare digits with masculine defaults ("2 frutinhas" → "dois"),
+ * so numbers are spelled out with the gender the template asks for: {n} → "dois", {n:f} → "duas".
+ */
+function numberWord(lang: Lang, n: number, gender?: string): string {
+  if (lang !== 'pt') return String(n)
+  if (n === 1) return gender === 'f' ? 'uma' : 'um'
+  if (n === 2) return gender === 'f' ? 'duas' : 'dois'
+  return ptNumberWords[n] ?? String(n)
 }
 
 const lines: Record<Lang, Record<string, Line>> = {
@@ -86,10 +102,12 @@ export function speak(lineId: LineId | string, opts: SpeakOptions): Promise<void
     })
   }
 
-  let text = line.text
-  for (const [key, value] of Object.entries(opts.params ?? {})) {
-    text = text.replaceAll(`{${key}}`, String(value))
-  }
+  let text = line.variants?.[String(opts.params?.n)] ?? line.text
+  text = text.replace(/\{(\w+)(?::([fm]))?\}/g, (match, key: string, gender?: string) => {
+    const value = (opts.params ?? {})[key]
+    if (value === undefined) return match
+    return typeof value === 'number' ? numberWord(opts.lang, value, gender) : String(value)
+  })
 
   if (!('speechSynthesis' in window)) return Promise.resolve()
 

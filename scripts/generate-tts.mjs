@@ -50,6 +50,20 @@ const paramValues = {
   'hop.back': range(1, 5)
 }
 
+// Must mirror src/audio/speak.ts
+const ptNumberWords = ['zero', 'um', 'dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove', 'dez', 'onze', 'doze', 'treze', 'catorze', 'quinze', 'dezesseis', 'dezessete', 'dezoito', 'dezenove', 'vinte']
+
+/**
+ * pt-BR TTS reads bare digits with masculine defaults ("2 frutinhas" → "dois"),
+ * so numbers are spelled out with the gender the template asks for: {n} → "dois", {n:f} → "duas".
+ */
+function numberWord(lang, n, gender) {
+  if (lang !== 'pt') return String(n)
+  if (n === 1) return gender === 'f' ? 'uma' : 'um'
+  if (n === 2) return gender === 'f' ? 'duas' : 'dois'
+  return ptNumberWords[n] ?? String(n)
+}
+
 const cache = existsSync(cachePath) ? JSON.parse(await readFile(cachePath, 'utf8')) : {}
 const manifest = existsSync(manifestPath) ? JSON.parse(await readFile(manifestPath, 'utf8')) : {}
 
@@ -77,7 +91,9 @@ for (const lang of ['ja', 'pt']) {
       variants = paramValues[id].map((v) => ({
         key: `${lang}/${id}?n=${v}`,
         file: `${id}.n${v}.mp3`,
-        text: line.text.replaceAll('{n}', String(v))
+        text:
+          line.variants?.[String(v)] ??
+          line.text.replace(/\{n(?::([fm]))?\}/g, (_, gender) => numberWord(lang, v, gender))
       }))
     } else {
       parameterized++
