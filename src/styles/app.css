@@ -1,0 +1,512 @@
+/* ---------- layout ---------- */
+
+.screen {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+    max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+}
+
+/* ---------- shared widgets ---------- */
+
+.star-bank {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-surface);
+  border-radius: var(--radius-full);
+  padding: 8px 20px;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  box-shadow: var(--shadow-soft);
+  min-height: var(--touch-min);
+}
+
+.lang-toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  font-size: 1.6rem;
+  border-radius: var(--radius-full);
+  width: var(--touch-min);
+  height: var(--touch-min);
+  box-shadow: var(--shadow-soft);
+  background: var(--color-sun);
+}
+
+.lang-toggle__current {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-ink-soft);
+}
+
+.progress-dots {
+  display: flex;
+  gap: 12px;
+}
+
+.progress-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-locked);
+  transition: background 0.3s, transform 0.3s;
+}
+
+.progress-dot--done {
+  background: var(--color-star);
+  transform: scale(1.15);
+}
+
+.start-btn {
+  font-size: var(--text-lg);
+  min-height: var(--touch-lg);
+  min-width: 200px;
+  padding: 8px 40px;
+  border-radius: var(--radius-full);
+  background: var(--color-leaf);
+  color: #fff;
+  font-weight: 700;
+  box-shadow: var(--shadow-pop);
+}
+
+.confirm-btn {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  width: var(--touch-xl);
+  height: var(--touch-xl);
+  border-radius: 50%;
+  font-size: var(--text-xl);
+  background: var(--color-leaf);
+  color: #fff;
+  box-shadow: var(--shadow-pop);
+}
+
+.scaffold-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  background: #fff;
+  border: 3px solid var(--color-sky);
+}
+
+.scaffold-dot--filled {
+  background: var(--color-sky);
+}
+
+/* ---------- first run ---------- */
+
+.first-run__langs {
+  display: flex;
+  gap: 32px;
+}
+
+.lang-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-md);
+  padding: 24px 40px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  border: 6px solid transparent;
+}
+
+.lang-card--picked {
+  border-color: var(--color-leaf);
+  background: #f0faf4;
+}
+
+.lang-card__glyph {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-leaf-deep);
+}
+
+.first-run__name {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.first-run__name input {
+  font-family: inherit;
+  font-size: var(--text-md);
+  padding: 16px 24px;
+  border-radius: var(--radius-md);
+  border: 3px solid var(--color-locked);
+  background: var(--color-surface);
+  min-height: var(--touch-min);
+  width: 280px;
+}
+
+/* ---------- world map ---------- */
+
+.world-map {
+  justify-content: flex-start;
+  background: linear-gradient(180deg, var(--color-bg-sky) 0%, var(--color-bg) 55%, #eaf3dc 100%);
+}
+
+.world-map__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.world-map__title {
+  font-size: var(--text-lg);
+  margin: 0;
+}
+
+.world-map__valley {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.map-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  background: var(--color-surface);
+  border: 6px solid var(--color-leaf);
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-node--next {
+  animation: node-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes node-pulse {
+  50% {
+    transform: translate(-50%, -50%) scale(1.12);
+  }
+}
+
+.map-node--done {
+  border-color: var(--color-star);
+  background: #fff8e8;
+}
+
+.map-node--locked {
+  border-color: var(--color-locked);
+  background: var(--color-locked);
+  color: var(--color-ink-soft);
+  cursor: default;
+}
+
+.world-map__guide {
+  position: absolute;
+  right: 2%;
+  bottom: 2%;
+  pointer-events: none;
+}
+
+/* ---------- mission player ---------- */
+
+.mission {
+  justify-content: flex-start;
+}
+
+.mission__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.mission__header .progress-dots {
+  flex: 1;
+  justify-content: center;
+  /* keep dots visually centered despite the exit button */
+  margin-right: var(--touch-min);
+}
+
+.mission__exit {
+  font-size: 1.8rem;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-soft);
+}
+
+.mission__stage {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mission__cheer {
+  position: fixed;
+  right: 6%;
+  bottom: 8%;
+  pointer-events: none;
+}
+
+.mission__chest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+
+.mission__chest-stars {
+  display: flex;
+  gap: 16px;
+}
+
+/* ---------- pattern: tap-count ---------- */
+
+.pattern {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.tapcount__herd {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 900px;
+}
+
+.tapcount__dino {
+  position: relative;
+  background: transparent;
+  min-width: var(--touch-lg);
+  min-height: var(--touch-lg);
+}
+
+.tapcount__dino--tapped {
+  filter: saturate(1.2) brightness(1.05);
+}
+
+.tapcount__badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-sun);
+  font-size: 1.6rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-soft);
+}
+
+.choice-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.choice-row__label {
+  margin: 0;
+  color: var(--color-ink-soft);
+}
+
+.choice-row__buttons {
+  display: flex;
+  gap: 28px;
+}
+
+.choice-btn {
+  width: var(--touch-xl);
+  height: var(--touch-xl);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-huge);
+  font-weight: 700;
+  box-shadow: var(--shadow-pop);
+}
+
+.choice-btn--reveal {
+  background: var(--color-sun);
+  animation: reveal-pulse 0.9s ease-in-out infinite;
+}
+
+@keyframes reveal-pulse {
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* ---------- pattern: feed ---------- */
+
+.feed__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8vw;
+  width: 100%;
+}
+
+.feed__dino {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.feed__scaffold {
+  position: absolute;
+  top: -84px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.feed__scaffold-number {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-leaf-deep);
+}
+
+.feed__scaffold-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.feed__belly {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  min-height: 52px;
+  max-width: 260px;
+}
+
+.feed__basket {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  background: #f7ead6;
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-soft);
+}
+
+.feed__berry {
+  background: transparent;
+  min-width: 80px;
+  min-height: 80px;
+}
+
+.feed__berry:disabled {
+  pointer-events: none;
+}
+
+/* ---------- pattern: number line hop ---------- */
+
+.pattern--hop {
+  gap: 12px;
+}
+
+.hop__scaffold {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hop__scaffold-arrow {
+  font-size: var(--text-lg);
+  color: var(--color-sky);
+  font-weight: 700;
+}
+
+.hop__line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 1000px;
+  padding-top: 90px;
+}
+
+.hop__spot {
+  position: relative;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border-radius: 50%;
+  font-size: 1.7rem;
+  font-weight: 700;
+  background: var(--color-surface);
+  border: 4px solid var(--color-sky);
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hop__spot--start {
+  border-color: var(--color-sun);
+  background: #fff8e8;
+}
+
+.hop__creature {
+  position: absolute;
+  bottom: 52px;
+  left: 50%;
+  margin-left: -36px;
+  pointer-events: none;
+}
+
+/* ---------- session end ---------- */
+
+.session-end {
+  background: linear-gradient(180deg, #2e3a59 0%, #4a5680 60%, var(--color-bg) 140%);
+  color: #fff;
+}
+
+.session-end__creatures {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.session-end__stars {
+  display: flex;
+  gap: 12px;
+  min-height: 70px;
+}
+
+.session-end__bank {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--text-xl);
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+  padding: 12px 36px;
+}
+
+.session-end__label {
+  font-size: var(--text-lg);
+  margin: 0;
+}

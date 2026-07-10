@@ -1,0 +1,15 @@
+{
+  "id": "dino-valley",
+  "missions": [
+    { "id": "dv-01", "pattern": "tapCount", "questions": 5, "params": { "min": 1, "max": 5 }, "stars": 3 },
+    { "id": "dv-02", "pattern": "tapCount", "questions": 5, "params": { "min": 3, "max": 7 }, "stars": 3 },
+    { "id": "dv-03", "pattern": "feed", "questions": 5, "params": { "min": 1, "max": 5 }, "stars": 3 },
+    { "id": "dv-04", "pattern": "tapCount", "questions": 6, "params": { "min": 5, "max": 10 }, "stars": 3 },
+    { "id": "dv-05", "pattern": "feed", "questions": 6, "params": { "min": 3, "max": 8 }, "stars": 3 },
+    { "id": "dv-06", "pattern": "numberLineHop", "questions": 5, "params": { "max": 10, "modes": ["goto"] }, "stars": 3 },
+    { "id": "dv-07", "pattern": "numberLineHop", "questions": 6, "params": { "max": 10, "modes": ["forward"] }, "stars": 4 },
+    { "id": "dv-08", "pattern": "feed", "questions": 6, "params": { "min": 5, "max": 10 }, "stars": 4 },
+    { "id": "dv-09", "pattern": "numberLineHop", "questions": 6, "params": { "max": 12, "modes": ["forward", "back"] }, "stars": 4 },
+    { "id": "dv-10", "pattern": "numberLineHop", "questions": 7, "params": { "max": 20, "modes": ["goto", "forward", "back"] }, "stars": 5 }
+  ]
+}

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#7FC8A9"/>
+  <!-- friendly dino face -->
+  <ellipse cx="256" cy="300" rx="150" ry="130" fill="#4DA184"/>
+  <ellipse cx="256" cy="330" rx="105" ry="85" fill="#DFF0D8"/>
+  <circle cx="200" cy="250" r="34" fill="#fff"/>
+  <circle cx="312" cy="250" r="34" fill="#fff"/>
+  <circle cx="208" cy="256" r="16" fill="#3D3A4B"/>
+  <circle cx="304" cy="256" r="16" fill="#3D3A4B"/>
+  <path d="M215 350 q41 34 82 0" stroke="#3D3A4B" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <!-- head spikes -->
+  <circle cx="180" cy="170" r="26" fill="#FFD66B"/>
+  <circle cx="256" cy="150" r="30" fill="#FFD66B"/>
+  <circle cx="332" cy="170" r="26" fill="#FFD66B"/>
+</svg>
