@@ -51,7 +51,7 @@ const paramValues = {
 }
 
 // Must mirror src/audio/speak.ts
-const ptNumberWords = ['zero', 'um', 'dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove', 'dez', 'onze', 'doze', 'treze', 'catorze', 'quinze', 'dezesseis', 'dezessete', 'dezoito', 'dezenove', 'vinte']
+const ptNumberWords = ['zero', 'um', 'dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove', 'dez', 'onze', 'doze', 'treze', 'quatorze', 'quinze', 'dezesseis', 'dezessete', 'dezoito', 'dezenove', 'vinte']
 
 /**
  * pt-BR TTS reads bare digits with masculine defaults ("2 frutinhas" → "dois"),
