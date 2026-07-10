@@ -6,9 +6,19 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
-    max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  gap: var(--space-md);
+  padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right))
+    max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+  /* safety valve: scroll instead of clipping when a small screen can't fit everything */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* SVG creatures get their size from the container, not their width/height
+   attributes — viewBox keeps the aspect ratio. */
+.screen svg {
+  max-width: 100%;
+  height: auto;
 }
 
 /* ---------- shared widgets ---------- */
@@ -19,11 +29,15 @@
   gap: 8px;
   background: var(--color-surface);
   border-radius: var(--radius-full);
-  padding: 8px 20px;
+  padding: 8px clamp(12px, 2.5vmin, 20px);
   font-size: var(--text-lg);
   font-weight: 700;
   box-shadow: var(--shadow-soft);
   min-height: var(--touch-min);
+}
+
+.star-bank svg {
+  width: clamp(28px, 6vmin, 48px);
 }
 
 .lang-toggle {
@@ -32,7 +46,7 @@
   align-items: center;
   justify-content: center;
   line-height: 1;
-  font-size: 1.6rem;
+  font-size: clamp(1.1rem, 3.2vmin, 1.6rem);
   border-radius: var(--radius-full);
   width: var(--touch-min);
   height: var(--touch-min);
@@ -48,12 +62,12 @@
 
 .progress-dots {
   display: flex;
-  gap: 12px;
+  gap: clamp(8px, 1.6vmin, 12px);
 }
 
 .progress-dot {
-  width: 22px;
-  height: 22px;
+  width: clamp(14px, 3vmin, 22px);
+  height: clamp(14px, 3vmin, 22px);
   border-radius: 50%;
   background: var(--color-locked);
   transition: background 0.3s, transform 0.3s;
@@ -67,8 +81,8 @@
 .start-btn {
   font-size: var(--text-lg);
   min-height: var(--touch-lg);
-  min-width: 200px;
-  padding: 8px 40px;
+  min-width: clamp(150px, 40vw, 200px);
+  padding: 8px clamp(24px, 6vw, 40px);
   border-radius: var(--radius-full);
   background: var(--color-leaf);
   color: #fff;
@@ -78,8 +92,8 @@
 
 .confirm-btn {
   position: fixed;
-  right: 32px;
-  bottom: 32px;
+  right: max(clamp(12px, 4vmin, 32px), env(safe-area-inset-right));
+  bottom: max(clamp(12px, 4vmin, 32px), env(safe-area-inset-bottom));
   width: var(--touch-xl);
   height: var(--touch-xl);
   border-radius: 50%;
@@ -90,8 +104,8 @@
 }
 
 .scaffold-dot {
-  width: 20px;
-  height: 20px;
+  width: clamp(14px, 2.8vmin, 20px);
+  height: clamp(14px, 2.8vmin, 20px);
   border-radius: 50%;
   display: inline-block;
   background: #fff;
@@ -104,9 +118,15 @@
 
 /* ---------- first run ---------- */
 
+.first-run > svg {
+  width: clamp(110px, 24vmin, 180px);
+}
+
 .first-run__langs {
   display: flex;
-  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-lg);
 }
 
 .lang-card {
@@ -115,7 +135,7 @@
   align-items: center;
   gap: 8px;
   font-size: var(--text-md);
-  padding: 24px 40px;
+  padding: clamp(14px, 3vmin, 24px) clamp(20px, 6vw, 40px);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
   border: 6px solid transparent;
@@ -134,8 +154,10 @@
 
 .first-run__name {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 20px;
+  justify-content: center;
+  gap: clamp(12px, 3vmin, 20px);
 }
 
 .first-run__name input {
@@ -146,7 +168,7 @@
   border: 3px solid var(--color-locked);
   background: var(--color-surface);
   min-height: var(--touch-min);
-  width: 280px;
+  width: min(280px, 80vw);
 }
 
 /* ---------- world map ---------- */
@@ -161,11 +183,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--space-sm);
 }
 
 .world-map__title {
   font-size: var(--text-lg);
   margin: 0;
+  text-align: center;
 }
 
 .world-map__valley {
@@ -173,22 +197,32 @@
   flex: 1;
   width: 100%;
   max-width: 1100px;
+  min-height: 0;
+  /* keep edge nodes fully on-screen: % path coords resolve inside this inset box */
+  margin: 0 auto;
+  padding: clamp(28px, 7vmin, 44px);
 }
 
 .map-node {
   position: absolute;
   transform: translate(-50%, -50%);
-  width: 88px;
-  height: 88px;
+  width: clamp(56px, 13vmin, 88px);
+  height: clamp(56px, 13vmin, 88px);
   border-radius: 50%;
   font-size: var(--text-lg);
   font-weight: 700;
   background: var(--color-surface);
-  border: 6px solid var(--color-leaf);
+  border: clamp(4px, 0.9vmin, 6px) solid var(--color-leaf);
   box-shadow: var(--shadow-soft);
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 0;
+  min-height: 0;
+}
+
+.map-node svg {
+  width: 55%;
 }
 
 .map-node--next {
@@ -220,6 +254,10 @@
   pointer-events: none;
 }
 
+.world-map__guide svg {
+  width: clamp(80px, 18vmin, 140px);
+}
+
 /* ---------- mission player ---------- */
 
 .mission {
@@ -230,18 +268,19 @@
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: var(--space-md);
 }
 
 .mission__header .progress-dots {
   flex: 1;
   justify-content: center;
+  flex-wrap: wrap;
   /* keep dots visually centered despite the exit button */
   margin-right: var(--touch-min);
 }
 
 .mission__exit {
-  font-size: 1.8rem;
+  font-size: clamp(1.3rem, 3.6vmin, 1.8rem);
   border-radius: var(--radius-full);
   box-shadow: var(--shadow-soft);
 }
@@ -252,6 +291,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 0;
 }
 
 .mission__cheer {
@@ -261,6 +301,10 @@
   pointer-events: none;
 }
 
+.mission__cheer svg {
+  width: clamp(70px, 16vmin, 120px);
+}
+
 .mission__chest {
   display: flex;
   flex-direction: column;
@@ -268,9 +312,17 @@
   margin: auto;
 }
 
+.mission__chest > svg {
+  width: clamp(150px, 40vmin, 220px);
+}
+
 .mission__chest-stars {
   display: flex;
-  gap: 16px;
+  gap: clamp(10px, 2.2vmin, 16px);
+}
+
+.mission__chest-stars svg {
+  width: clamp(36px, 9vmin, 56px);
 }
 
 /* ---------- pattern: tap-count ---------- */
@@ -280,14 +332,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
+  gap: clamp(16px, 4vmin, 28px);
 }
 
 .tapcount__herd {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: clamp(10px, 2.5vmin, 20px);
   max-width: 900px;
 }
 
@@ -298,6 +350,11 @@
   min-height: var(--touch-lg);
 }
 
+.tapcount__dino svg {
+  width: var(--touch-lg);
+  height: var(--touch-lg);
+}
+
 .tapcount__dino--tapped {
   filter: saturate(1.2) brightness(1.05);
 }
@@ -306,11 +363,11 @@
   position: absolute;
   top: -6px;
   right: -6px;
-  width: 44px;
-  height: 44px;
+  width: clamp(30px, 6.5vmin, 44px);
+  height: clamp(30px, 6.5vmin, 44px);
   border-radius: 50%;
   background: var(--color-sun);
-  font-size: 1.6rem;
+  font-size: clamp(1.1rem, 3.2vmin, 1.6rem);
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -332,7 +389,9 @@
 
 .choice-row__buttons {
   display: flex;
-  gap: 28px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(14px, 4vw, 28px);
 }
 
 .choice-btn {
@@ -359,9 +418,10 @@
 
 .feed__stage {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 8vw;
+  gap: clamp(20px, 8vw, 100px) clamp(20px, 8vw, 100px);
   width: 100%;
 }
 
@@ -372,9 +432,13 @@
   align-items: center;
 }
 
+.feed__dino > svg {
+  width: clamp(120px, 28vmin, 200px);
+}
+
 .feed__scaffold {
   position: absolute;
-  top: -84px;
+  top: calc(-1 * clamp(56px, 12vmin, 84px));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -397,24 +461,32 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 4px;
-  min-height: 52px;
-  max-width: 260px;
+  min-height: clamp(36px, 7vmin, 52px);
+  max-width: min(260px, 70vw);
+}
+
+.feed__belly svg {
+  width: clamp(28px, 6vmin, 44px);
 }
 
 .feed__basket {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: clamp(8px, 2.2vmin, 16px);
   background: #f7ead6;
   border-radius: var(--radius-lg);
-  padding: 24px;
+  padding: clamp(12px, 3vmin, 24px);
   box-shadow: var(--shadow-soft);
 }
 
 .feed__berry {
   background: transparent;
-  min-width: 80px;
-  min-height: 80px;
+  min-width: clamp(56px, 13vmin, 80px);
+  min-height: clamp(56px, 13vmin, 80px);
+}
+
+.feed__berry svg {
+  width: clamp(48px, 11vmin, 72px);
 }
 
 .feed__berry:disabled {
@@ -443,9 +515,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  max-width: 1000px;
-  padding-top: 90px;
+  gap: clamp(6px, 1.6vmin, 10px);
+  max-width: min(1000px, 100%);
+  /* headroom for the hopping creature above the row */
+  padding-top: clamp(56px, 14vmin, 90px);
 }
 
 .hop__spot {
@@ -453,7 +526,7 @@
   width: var(--touch-min);
   height: var(--touch-min);
   border-radius: 50%;
-  font-size: 1.7rem;
+  font-size: clamp(1.2rem, 3.4vmin, 1.7rem);
   font-weight: 700;
   background: var(--color-surface);
   border: 4px solid var(--color-sky);
@@ -469,11 +542,17 @@
 }
 
 .hop__creature {
+  /* framer-motion's layout animation owns transform — center with margin instead */
+  --hopper-size: clamp(44px, 10vmin, 72px);
   position: absolute;
-  bottom: 52px;
+  bottom: calc(100% - 12px);
   left: 50%;
-  margin-left: -36px;
+  margin-left: calc(var(--hopper-size) / -2);
   pointer-events: none;
+}
+
+.hop__creature svg {
+  width: var(--hopper-size);
 }
 
 /* ---------- session end ---------- */
@@ -486,13 +565,25 @@
 .session-end__creatures {
   display: flex;
   align-items: flex-end;
-  gap: 16px;
+  gap: clamp(10px, 2.2vmin, 16px);
+}
+
+.session-end__creatures svg:first-child {
+  width: clamp(110px, 24vmin, 180px);
+}
+
+.session-end__creatures svg:last-child {
+  width: clamp(68px, 15vmin, 110px);
 }
 
 .session-end__stars {
   display: flex;
   gap: 12px;
-  min-height: 70px;
+  min-height: clamp(48px, 10vmin, 70px);
+}
+
+.session-end__stars svg {
+  width: clamp(40px, 9vmin, 64px);
 }
 
 .session-end__bank {
@@ -503,7 +594,11 @@
   font-weight: 700;
   background: rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-full);
-  padding: 12px 36px;
+  padding: clamp(8px, 1.8vmin, 12px) clamp(20px, 5vmin, 36px);
+}
+
+.session-end__bank svg {
+  width: clamp(32px, 7vmin, 52px);
 }
 
 .session-end__label {

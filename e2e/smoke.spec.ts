@@ -1,7 +1,12 @@
 import { test, expect, type Page } from '@playwright/test'
 
-// Instant, deterministic speech so the game never waits on real TTS in CI
+// Instant, deterministic speech so the game never waits on real TTS in CI.
+// The baked-mp3 manifest is stubbed empty so speak() always takes the
+// (also stubbed) speechSynthesis path — headless Chromium can't play audio.
 async function stubSpeech(page: Page) {
+  await page.route('**/audio/manifest.json', (route) =>
+    route.fulfill({ json: {} })
+  )
   await page.addInitScript(() => {
     class FakeUtterance {
       text = ''

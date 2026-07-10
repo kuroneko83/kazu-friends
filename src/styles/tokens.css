@@ -16,17 +16,23 @@
   --color-earth: #d9a066;
   --color-locked: #d8d3c8;
 
-  /* Touch + type: everything sized for small hands, no reading required */
-  --touch-min: 64px;
-  --touch-lg: 96px;
-  --touch-xl: 128px;
+  /* Touch + type: everything sized for small hands, no reading required.
+     Fluid via vmin so the UI scales from small phones to tablets/desktops
+     in both orientations without breakpoint jumps. */
+  --touch-min: clamp(48px, 10vmin, 64px);
+  --touch-lg: clamp(64px, 14vmin, 96px);
+  --touch-xl: clamp(84px, 19vmin, 128px);
 
   --font-display: 'Rounded Mplus 1c', 'Hiragino Maru Gothic ProN', 'Comic Sans MS', 'Segoe UI',
     system-ui, sans-serif;
-  --text-md: 1.5rem;
-  --text-lg: 2.25rem;
-  --text-xl: 3.5rem;
-  --text-huge: 5rem;
+  --text-md: clamp(1.1rem, 3vmin, 1.5rem);
+  --text-lg: clamp(1.35rem, 4.2vmin, 2.25rem);
+  --text-xl: clamp(1.9rem, 6.5vmin, 3.5rem);
+  --text-huge: clamp(2.5rem, 9.5vmin, 5rem);
+
+  --space-sm: clamp(8px, 1.8vmin, 16px);
+  --space-md: clamp(12px, 2.8vmin, 24px);
+  --space-lg: clamp(16px, 3.8vmin, 32px);
 
   --radius-md: 20px;
   --radius-lg: 32px;
@@ -44,7 +50,9 @@
 html,
 body,
 #root {
+  /* dvh tracks the real visible area under mobile browser toolbars */
   height: 100%;
+  height: 100dvh;
   margin: 0;
   overflow: hidden;
 }
