@@ -10,6 +10,8 @@ export const ui: Record<Lang, Record<string, string>> = {
     start: 'Começar!',
     missionDone: 'Missão completa!',
     seeYouTomorrow: 'Até amanhã!',
+    seeYouTomorrowName: 'Até amanhã, {name}!',
+    helloName: 'Olá, {name}!',
     howMany: 'Quantos são?'
   },
   ja: {
@@ -19,10 +21,14 @@ export const ui: Record<Lang, Record<string, string>> = {
     start: 'スタート!',
     missionDone: 'ミッションクリア!',
     seeYouTomorrow: 'またあしたね!',
+    seeYouTomorrowName: '{name}、またあしたね!',
+    helloName: '{name}、こんにちは!',
     howMany: 'いくつかな?'
   }
 }
 
-export function t(lang: Lang, key: string): string {
-  return ui[lang][key] ?? key
+export function t(lang: Lang, key: string, params?: Record<string, string>): string {
+  let text = ui[lang][key] ?? key
+  for (const [k, v] of Object.entries(params ?? {})) text = text.replaceAll(`{${k}}`, v)
+  return text
 }

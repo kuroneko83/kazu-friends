@@ -26,6 +26,7 @@ const PATH: Array<{ x: number; y: number }> = [
 
 export function WorldMap() {
   const lang = useGameStore((s) => s.lang)
+  const childName = useGameStore((s) => s.childName)
   const completed = useGameStore((s) => s.completed)
   const startMission = useGameStore((s) => s.startMission)
   const greeted = useRef(false)
@@ -51,6 +52,7 @@ export function WorldMap() {
         <h1 className="world-map__title">🦖 {t(lang, 'worldName')}</h1>
         <LanguageToggle />
       </header>
+      {childName && <p className="world-map__greeting">{t(lang, 'helloName', { name: childName })}</p>}
 
       <div className="world-map__valley">
         {world.missions.map((mission, i) => {

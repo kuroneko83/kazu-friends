@@ -12,6 +12,7 @@ import { t } from '../i18n'
  */
 export function SessionEnd() {
   const lang = useGameStore((s) => s.lang)
+  const childName = useGameStore((s) => s.childName)
   const lastStars = useGameStore((s) => s.lastStars)
   const starBalance = useGameStore((s) => s.starBalance)
   const finishSession = useGameStore((s) => s.finishSession)
@@ -54,7 +55,9 @@ export function SessionEnd() {
         <Star size={52} /> {starBalance}
       </motion.div>
 
-      <p className="session-end__label">{t(lang, 'seeYouTomorrow')} 🌙</p>
+      <p className="session-end__label">
+        {childName ? t(lang, 'seeYouTomorrowName', { name: childName }) : t(lang, 'seeYouTomorrow')} 🌙
+      </p>
 
       <motion.button
         className="start-btn"
