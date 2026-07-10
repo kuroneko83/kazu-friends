@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
+  // GitHub Pages serves from /kazu-friends/; Vercel and local dev serve from /
+  base: process.env.DEPLOY_BASE ?? '/',
   plugins: [
     react(),
     VitePWA({
