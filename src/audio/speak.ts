@@ -71,10 +71,14 @@ export function speak(lineId: LineId | string, opts: SpeakOptions): Promise<void
 
   stopSpeaking()
 
-  const hasParams = opts.params && Object.keys(opts.params).length > 0
-  const mp3 = manifest[`${opts.lang}/${lineId}`]
-  // Parameterized lines can't use a single baked mp3 — always synthesize those.
-  if (mp3 && !hasParams) {
+  // Numeric-param lines are baked per value ("<lang>/<id>?n=3"); only lines
+  // with dynamic params ({name}) miss the manifest and fall back to synthesis.
+  const params = Object.entries(opts.params ?? {})
+  const suffix = params.length
+    ? '?' + params.sort(([a], [b]) => a.localeCompare(b)).map(([k, v]) => `${k}=${v}`).join('&')
+    : ''
+  const mp3 = manifest[`${opts.lang}/${lineId}${suffix}`]
+  if (mp3) {
     return new Promise((resolve) => {
       const howl = new Howl({ src: [base + mp3.replace(/^\//, '')], onend: () => resolve(), onloaderror: () => resolve(), onplayerror: () => resolve() })
       currentHowl = howl

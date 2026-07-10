@@ -9,7 +9,10 @@
  * the browser speechSynthesis fallback, so builds never block on this.
  *
  * Hash-cached: unchanged lines are skipped on re-runs.
- * Lines containing {placeholders} are skipped (always synthesized at runtime).
+ *
+ * Numeric {n} placeholder lines are baked once per possible value (ranges
+ * mirror engine/generator.ts + dino-valley.json), keyed "<lang>/<id>?n=<v>".
+ * Only lines with dynamic params ({name}) stay on runtime synthesis.
  */
 import { createHash } from 'node:crypto'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
@@ -36,6 +39,17 @@ const voices = {
 }
 const bcp47 = { ja: 'ja-JP', pt: 'pt-BR' }
 
+// Every value {n} can take, per line — from the mission defs and generator bounds
+function range(min, max) {
+  return Array.from({ length: max - min + 1 }, (_, i) => min + i)
+}
+const paramValues = {
+  'feed.prompt': range(1, 10),
+  'hop.goto': range(1, 20),
+  'hop.forward': range(1, 5),
+  'hop.back': range(1, 5)
+}
+
 const cache = existsSync(cachePath) ? JSON.parse(await readFile(cachePath, 'utf8')) : {}
 const manifest = existsSync(manifestPath) ? JSON.parse(await readFile(manifestPath, 'utf8')) : {}
 
@@ -48,42 +62,56 @@ for (const lang of ['ja', 'pt']) {
   await mkdir(path.join(audioDir, lang), { recursive: true })
 
   for (const [id, line] of Object.entries(lines)) {
-    if (line.text.includes('{')) {
-      parameterized++
-      continue
-    }
     const voice = voices[line.character]?.[lang]
     if (!voice) {
       console.warn(`No voice for character "${line.character}" (${lang}/${id}) — skipping`)
       continue
     }
-    const key = `${lang}/${id}`
-    const hash = createHash('sha256').update(`${voice}:${line.text}`).digest('hex').slice(0, 16)
-    const filePath = path.join(audioDir, lang, `${id}.mp3`)
-    if (cache[key] === hash && existsSync(filePath)) {
-      skipped++
+
+    // One variant for plain lines; one per possible n for numeric {n} lines.
+    // Lines with dynamic params ({name}) stay on runtime synthesis.
+    let variants
+    if (!line.text.includes('{')) {
+      variants = [{ key: `${lang}/${id}`, file: `${id}.mp3`, text: line.text }]
+    } else if (paramValues[id]) {
+      variants = paramValues[id].map((v) => ({
+        key: `${lang}/${id}?n=${v}`,
+        file: `${id}.n${v}.mp3`,
+        text: line.text.replaceAll('{n}', String(v))
+      }))
+    } else {
+      parameterized++
       continue
     }
 
-    const res = await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${API_KEY}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        input: { text: line.text },
-        voice: { languageCode: bcp47[lang], name: voice },
-        audioConfig: { audioEncoding: 'MP3', speakingRate: line.character === 'guide' ? 0.9 : 1.0 }
+    for (const { key, file, text } of variants) {
+      const hash = createHash('sha256').update(`${voice}:${text}`).digest('hex').slice(0, 16)
+      const filePath = path.join(audioDir, lang, file)
+      if (cache[key] === hash && existsSync(filePath)) {
+        skipped++
+        continue
+      }
+
+      const res = await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${API_KEY}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          input: { text },
+          voice: { languageCode: bcp47[lang], name: voice },
+          audioConfig: { audioEncoding: 'MP3', speakingRate: line.character === 'guide' ? 0.9 : 1.0 }
+        })
       })
-    })
-    if (!res.ok) {
-      console.error(`TTS failed for ${key}: ${res.status} ${await res.text()}`)
-      process.exit(1)
+      if (!res.ok) {
+        console.error(`TTS failed for ${key}: ${res.status} ${await res.text()}`)
+        process.exit(1)
+      }
+      const { audioContent } = await res.json()
+      await writeFile(filePath, Buffer.from(audioContent, 'base64'))
+      cache[key] = hash
+      manifest[key] = `audio/${lang}/${file}`
+      synthesized++
+      console.log(`✓ ${key} (${voice})`)
     }
-    const { audioContent } = await res.json()
-    await writeFile(filePath, Buffer.from(audioContent, 'base64'))
-    cache[key] = hash
-    manifest[key] = `audio/${lang}/${id}.mp3`
-    synthesized++
-    console.log(`✓ ${key} (${voice})`)
   }
 }
 
