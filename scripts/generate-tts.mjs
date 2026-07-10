@@ -81,7 +81,7 @@ for (const lang of ['ja', 'pt']) {
     const { audioContent } = await res.json()
     await writeFile(filePath, Buffer.from(audioContent, 'base64'))
     cache[key] = hash
-    manifest[key] = `/audio/${lang}/${id}.mp3`
+    manifest[key] = `audio/${lang}/${id}.mp3`
     synthesized++
     console.log(`✓ ${key} (${voice})`)
   }

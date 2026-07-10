@@ -16,8 +16,10 @@ const lines: Record<Lang, Record<string, Line>> = {
 export type LineId = keyof typeof linesPt
 
 /** manifest.json maps "<lang>/<lineId>" → mp3 URL; absent until `npm run tts` bakes real voices */
+// BASE_URL is '/' in dev/Vercel and '/kazu-friends/' on GitHub Pages
+const base = import.meta.env.BASE_URL
 let manifest: Record<string, string> = {}
-fetch('/audio/manifest.json')
+fetch(`${base}audio/manifest.json`)
   .then((r) => (r.ok ? r.json() : {}))
   .then((m) => (manifest = m))
   .catch(() => {})
@@ -74,7 +76,7 @@ export function speak(lineId: LineId | string, opts: SpeakOptions): Promise<void
   // Parameterized lines can't use a single baked mp3 — always synthesize those.
   if (mp3 && !hasParams) {
     return new Promise((resolve) => {
-      const howl = new Howl({ src: [mp3], onend: () => resolve(), onloaderror: () => resolve(), onplayerror: () => resolve() })
+      const howl = new Howl({ src: [base + mp3.replace(/^\//, '')], onend: () => resolve(), onloaderror: () => resolve(), onplayerror: () => resolve() })
       currentHowl = howl
       howl.play()
     })
