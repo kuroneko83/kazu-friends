@@ -36,6 +36,6 @@
   "together.done": { "text": "Viu? Conseguimos juntos!", "character": "guide" },
   "mission.done": { "text": "Missão completa!", "character": "guide" },
   "stars.won": { "text": "Você ganhou estrelas!", "character": "pip" },
-  "end.goodbye": { "text": "Tchau, {name}! Você foi demais hoje!", "character": "guide" },
+  "end.goodbye": { "text": "Tchau! Você foi demais hoje!", "character": "guide" },
   "end.tomorrow": { "text": "Até amanhã!", "character": "pip" }
 }

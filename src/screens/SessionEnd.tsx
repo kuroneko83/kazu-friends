@@ -12,7 +12,6 @@ import { t } from '../i18n'
  */
 export function SessionEnd() {
   const lang = useGameStore((s) => s.lang)
-  const childName = useGameStore((s) => s.childName)
   const lastStars = useGameStore((s) => s.lastStars)
   const starBalance = useGameStore((s) => s.starBalance)
   const finishSession = useGameStore((s) => s.finishSession)
@@ -21,8 +20,7 @@ export function SessionEnd() {
   useEffect(() => {
     if (spoke.current) return
     spoke.current = true
-    const name = childName || (lang === 'pt' ? 'amigo' : 'きみ')
-    void speak('end.goodbye', { lang, params: { name } }).then(() => speak('end.tomorrow', { lang }))
+    void speak('end.goodbye', { lang }).then(() => speak('end.tomorrow', { lang }))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

@@ -36,6 +36,6 @@
   "together.done": { "text": "ほらね! いっしょに できたね!", "character": "guide" },
   "mission.done": { "text": "ミッション クリア!", "character": "guide" },
   "stars.won": { "text": "スターを ゲット!", "character": "pip" },
-  "end.goodbye": { "text": "{name}、きょうは よくがんばったね!", "character": "guide" },
+  "end.goodbye": { "text": "きょうは よくがんばったね!", "character": "guide" },
   "end.tomorrow": { "text": "また あしたね! バイバイ!", "character": "pip" }
 }
