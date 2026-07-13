@@ -1,4 +1,6 @@
-export type PatternId = 'tapCount' | 'feed' | 'numberLineHop'
+export type PatternId = 'tapCount' | 'feed' | 'numberLineHop' | 'equation'
+
+export type EquationOp = 'add' | 'sub' | 'decompose'
 
 /** Pattern 1: tap the dinos as they're counted aloud, then pick "how many?" */
 export interface TapCountQuestion {
@@ -27,7 +29,20 @@ export interface HopQuestion {
   answer: number
 }
 
-export type Question = TapCountQuestion | FeedQuestion | HopQuestion
+/** Pattern 4: spoken equation answered by tapping a numeral —
+ *  add/sub within 10 plus "breaking apart" teens (15 = 10 + ▢) */
+export interface EquationQuestion {
+  pattern: 'equation'
+  op: EquationOp
+  /** add/sub: left operand; decompose: the teen being broken apart */
+  a: number
+  /** add/sub: right operand; decompose: always 10 */
+  b: number
+  answer: number
+  choices: number[]
+}
+
+export type Question = TapCountQuestion | FeedQuestion | HopQuestion | EquationQuestion
 
 export interface MissionDef {
   id: string
@@ -39,6 +54,7 @@ export interface MissionDef {
     min?: number
     max?: number
     modes?: Array<'goto' | 'forward' | 'back'>
+    ops?: EquationOp[]
   }
   stars: number
 }

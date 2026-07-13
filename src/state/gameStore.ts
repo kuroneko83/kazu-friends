@@ -11,6 +11,7 @@ interface GameState {
   childName: string
   starBalance: number
   completed: Record<string, MissionProgress>
+  activeWorldId: string
   activeMissionId: string | null
   /** stars won in the mission that just ended, for the session-end ceremony */
   lastStars: number
@@ -18,6 +19,7 @@ interface GameState {
   hydrate: () => Promise<void>
   completeOnboarding: (lang: Lang, childName: string) => Promise<void>
   toggleLang: () => Promise<void>
+  setWorld: (worldId: string) => Promise<void>
   startMission: (missionId: string) => void
   completeMission: (missionId: string, stars: number) => Promise<void>
   finishSession: () => void
@@ -31,6 +33,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   childName: '',
   starBalance: 0,
   completed: {},
+  activeWorldId: 'dino-valley',
   activeMissionId: null,
   lastStars: 0,
 
@@ -46,6 +49,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       hydrated: true,
       lang: settings?.lang ?? 'pt',
       childName: settings?.childName ?? '',
+      activeWorldId: settings?.activeWorldId ?? 'dino-valley',
       screen: settings?.onboarded ? 'map' : 'firstRun',
       completed,
       starBalance: starEvents.reduce((sum, e) => sum + e.amount, 0)
@@ -62,6 +66,12 @@ export const useGameStore = create<GameState>((set, get) => ({
     set({ lang })
     const settings = await db.settings.get('main')
     if (settings) await db.settings.put({ ...settings, lang })
+  },
+
+  setWorld: async (worldId) => {
+    set({ activeWorldId: worldId })
+    const settings = await db.settings.get('main')
+    if (settings) await db.settings.put({ ...settings, activeWorldId: worldId })
   },
 
   startMission: (missionId) => set({ activeMissionId: missionId, screen: 'mission' }),

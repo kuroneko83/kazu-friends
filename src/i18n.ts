@@ -5,7 +5,8 @@ import type { Lang } from './audio/voices'
 export const ui: Record<Lang, Record<string, string>> = {
   pt: {
     play: 'Jogar',
-    worldName: 'Vale dos Dinos',
+    'worldName.dino-valley': 'Vale dos Dinos',
+    'worldName.star-station': 'Estação Estelar',
     yourName: 'Nome da criança',
     start: 'Começar!',
     missionDone: 'Missão completa!',
@@ -16,7 +17,8 @@ export const ui: Record<Lang, Record<string, string>> = {
   },
   ja: {
     play: 'あそぶ',
-    worldName: 'ダイノバレー',
+    'worldName.dino-valley': 'ダイノバレー',
+    'worldName.star-station': 'スターステーション',
     yourName: 'おなまえ',
     start: 'スタート!',
     missionDone: 'ミッションクリア!',

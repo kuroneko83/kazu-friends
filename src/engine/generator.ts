@@ -61,6 +61,43 @@ export function generateMission(def: MissionDef, seed: number): Question[] {
         questions.push({ pattern: 'feed', target, available: target + randInt(rng, 2, 3) })
         break
       }
+      case 'equation': {
+        const max = def.params.max ?? 10
+        const ops = def.params.ops ?? ['add']
+        const op = ops[randInt(rng, 0, ops.length - 1)]
+        let a: number
+        let b: number
+        let answer: number
+        if (op === 'add') {
+          a = randInt(rng, 1, max - 1)
+          b = randInt(rng, 1, max - a)
+          answer = a + b
+          if (answer === previousAnswer) {
+            if (a + b < max) b += 1
+            else if (b > 1) b -= 1
+            else a = Math.max(1, a - 1)
+            answer = a + b
+          }
+        } else if (op === 'sub') {
+          a = randInt(rng, 2, max)
+          b = randInt(rng, 1, a - 1)
+          answer = a - b
+          if (answer === previousAnswer) {
+            b = b === a - 1 ? 1 : b + 1
+            answer = a - b
+          }
+        } else {
+          a = randInt(rng, 11, 19)
+          if (a - 10 === previousAnswer) a = a === 19 ? 11 : a + 1
+          b = 10
+          answer = a - 10
+        }
+        previousAnswer = answer
+        // decompose answers are 1–9; cap distractors so choices stay single-digit
+        const choiceMax = op === 'decompose' ? 7 : max
+        questions.push({ pattern: 'equation', op, a, b, answer, choices: numeralChoices(rng, answer, choiceMax) })
+        break
+      }
       case 'numberLineHop': {
         const max = def.params.max ?? 10
         const modes = def.params.modes ?? ['goto']

@@ -10,8 +10,9 @@
  *
  * Hash-cached: unchanged lines are skipped on re-runs.
  *
- * Numeric {n} placeholder lines are baked once per possible value (ranges
- * mirror engine/generator.ts + dino-valley.json), keyed "<lang>/<id>?n=<v>".
+ * Numeric placeholder lines ({n}, {a}+{b}) are baked once per possible param
+ * combination (ranges mirror engine/generator.ts + the mission defs), keyed
+ * "<lang>/<id>?a=1&b=2" with params sorted alphabetically.
  * Only lines with dynamic params ({name}) stay on runtime synthesis.
  */
 import { createHash } from 'node:crypto'
@@ -39,15 +40,22 @@ const voices = {
 }
 const bcp47 = { ja: 'ja-JP', pt: 'pt-BR' }
 
-// Every value {n} can take, per line — from the mission defs and generator bounds
+// Every param combination a line can take — from the mission defs and generator bounds
 function range(min, max) {
   return Array.from({ length: max - min + 1 }, (_, i) => min + i)
 }
+const addPairs = [] // a + b within 10, both addends ≥ 1
+for (let a = 1; a <= 9; a++) for (let b = 1; b <= 10 - a; b++) addPairs.push({ a, b })
+const subPairs = [] // minuend ≤ 10, difference ≥ 1
+for (let a = 2; a <= 10; a++) for (let b = 1; b < a; b++) subPairs.push({ a, b })
 const paramValues = {
-  'feed.prompt': range(1, 10),
-  'hop.goto': range(1, 20),
-  'hop.forward': range(1, 5),
-  'hop.back': range(1, 5)
+  'feed.prompt': range(1, 10).map((n) => ({ n })),
+  'hop.goto': range(1, 20).map((n) => ({ n })),
+  'hop.forward': range(1, 5).map((n) => ({ n })),
+  'hop.back': range(1, 5).map((n) => ({ n })),
+  'eq.add': addPairs,
+  'eq.sub': subPairs,
+  'eq.decompose': range(11, 19).map((n) => ({ n }))
 }
 
 // Must mirror src/audio/speak.ts
@@ -88,13 +96,19 @@ for (const lang of ['ja', 'pt']) {
     if (!line.text.includes('{')) {
       variants = [{ key: `${lang}/${id}`, file: `${id}.mp3`, text: line.text }]
     } else if (paramValues[id]) {
-      variants = paramValues[id].map((v) => ({
-        key: `${lang}/${id}?n=${v}`,
-        file: `${id}.n${v}.mp3`,
-        text:
-          line.variants?.[String(v)] ??
-          line.text.replace(/\{n(?::([fm]))?\}/g, (_, gender) => numberWord(lang, v, gender))
-      }))
+      variants = paramValues[id].map((params) => {
+        const entries = Object.entries(params).sort(([a], [b]) => a.localeCompare(b))
+        const suffix = entries.map(([k, v]) => `${k}=${v}`).join('&')
+        return {
+          key: `${lang}/${id}?${suffix}`,
+          file: `${id}.${entries.map(([k, v]) => `${k}${v}`).join('.')}.mp3`,
+          text:
+            line.variants?.[suffix] ??
+            line.text.replace(/\{(\w+)(?::([fm]))?\}/g, (match, key, gender) =>
+              params[key] === undefined ? match : numberWord(lang, params[key], gender)
+            )
+        }
+      })
     } else {
       parameterized++
       continue

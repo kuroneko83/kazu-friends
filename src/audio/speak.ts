@@ -6,7 +6,8 @@ import linesPt from '../../content/lines.pt.json'
 interface Line {
   text: string
   character: string
-  /** per-value overrides for {n} lines where more than the numeral changes (e.g. singular noun at n=1) */
+  /** per-value overrides, keyed by param suffix ("n=1"), for lines where more
+   *  than the numeral changes (e.g. singular noun at n=1) */
   variants?: Record<string, string>
 }
 
@@ -102,7 +103,7 @@ export function speak(lineId: LineId | string, opts: SpeakOptions): Promise<void
     })
   }
 
-  let text = line.variants?.[String(opts.params?.n)] ?? line.text
+  let text = line.variants?.[suffix.slice(1)] ?? line.text
   text = text.replace(/\{(\w+)(?::([fm]))?\}/g, (match, key: string, gender?: string) => {
     const value = (opts.params ?? {})[key]
     if (value === undefined) return match

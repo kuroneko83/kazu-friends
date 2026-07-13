@@ -1,0 +1,15 @@
+{
+  "id": "star-station",
+  "missions": [
+    { "id": "ss-01", "pattern": "equation", "questions": 5, "params": { "max": 5, "ops": ["add"] }, "stars": 3 },
+    { "id": "ss-02", "pattern": "equation", "questions": 5, "params": { "max": 10, "ops": ["add"] }, "stars": 3 },
+    { "id": "ss-03", "pattern": "numberLineHop", "questions": 5, "params": { "max": 10, "modes": ["forward"] }, "stars": 3 },
+    { "id": "ss-04", "pattern": "equation", "questions": 5, "params": { "max": 5, "ops": ["sub"] }, "stars": 3 },
+    { "id": "ss-05", "pattern": "numberLineHop", "questions": 6, "params": { "max": 10, "modes": ["back"] }, "stars": 3 },
+    { "id": "ss-06", "pattern": "equation", "questions": 6, "params": { "max": 10, "ops": ["sub"] }, "stars": 4 },
+    { "id": "ss-07", "pattern": "equation", "questions": 6, "params": { "max": 10, "ops": ["add", "sub"] }, "stars": 4 },
+    { "id": "ss-08", "pattern": "equation", "questions": 6, "params": { "ops": ["decompose"] }, "stars": 4 },
+    { "id": "ss-09", "pattern": "equation", "questions": 6, "params": { "max": 10, "ops": ["add", "sub", "decompose"] }, "stars": 4 },
+    { "id": "ss-10", "pattern": "equation", "questions": 7, "params": { "max": 10, "ops": ["add", "sub", "decompose"] }, "stars": 5 }
+  ]
+}

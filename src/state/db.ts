@@ -6,6 +6,8 @@ export interface Settings {
   lang: Lang
   childName: string
   onboarded: boolean
+  /** last world open on the map; absent in pre-M2 saves */
+  activeWorldId?: string
 }
 
 export interface MissionProgress {

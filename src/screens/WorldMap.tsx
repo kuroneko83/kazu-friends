@@ -1,16 +1,18 @@
 import { useEffect, useRef } from 'react'
-import worldData from '../../content/missions/dino-valley.json'
-import type { WorldDef } from '../engine/types'
+import { worlds, worldById } from '../engine/worlds'
 import { speak } from '../audio/speak'
 import { useGameStore } from '../state/gameStore'
 import { StarBank } from '../components/StarBank'
 import { LanguageToggle } from '../components/LanguageToggle'
-import { GuideDino, Star } from '../components/creatures'
+import { GuideDino, Pip, Star } from '../components/creatures'
 import { t } from '../i18n'
 
-const world = worldData as WorldDef
+const WORLD_EMOJI: Record<string, string> = {
+  'dino-valley': '🦖',
+  'star-station': '🚀'
+}
 
-// Gentle S-curve path across the valley (percent coordinates per node)
+// Gentle S-curve path across the map (percent coordinates per node)
 const PATH: Array<{ x: number; y: number }> = [
   { x: 8, y: 78 },
   { x: 22, y: 62 },
@@ -24,19 +26,28 @@ const PATH: Array<{ x: number; y: number }> = [
   { x: 92, y: 50 }
 ]
 
+function welcomeLine(worldId: string): string {
+  return worldId === 'dino-valley' ? 'welcome' : `welcome.${worldId}`
+}
+
 export function WorldMap() {
   const lang = useGameStore((s) => s.lang)
   const childName = useGameStore((s) => s.childName)
   const completed = useGameStore((s) => s.completed)
+  const activeWorldId = useGameStore((s) => s.activeWorldId)
+  const setWorld = useGameStore((s) => s.setWorld)
   const startMission = useGameStore((s) => s.startMission)
-  const greeted = useRef(false)
+  const greetedWorld = useRef<string | null>(null)
+
+  const world = worldById(activeWorldId)
 
   useEffect(() => {
-    if (greeted.current) return
-    greeted.current = true
-    void speak('welcome', { lang }).then(() => speak('map.pick', { lang }))
+    if (greetedWorld.current === world.id) return
+    const first = greetedWorld.current === null
+    greetedWorld.current = world.id
+    void speak(welcomeLine(world.id), { lang }).then(() => (first ? speak('map.pick', { lang }) : undefined))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [world.id])
 
   // A mission is unlocked when it's first on the path or its predecessor is done
   function isUnlocked(index: number): boolean {
@@ -46,13 +57,30 @@ export function WorldMap() {
   const nextIndex = world.missions.findIndex((m, i) => isUnlocked(i) && !completed[m.id])
 
   return (
-    <div className="screen world-map" data-testid="world-map">
+    <div className={`screen world-map world-map--${world.id}`} data-testid="world-map">
       <header className="world-map__header">
         <StarBank />
-        <h1 className="world-map__title">🦖 {t(lang, 'worldName')}</h1>
+        <h1 className="world-map__title">
+          {WORLD_EMOJI[world.id]} {t(lang, `worldName.${world.id}`)}
+        </h1>
         <LanguageToggle />
       </header>
-      {childName && <p className="world-map__greeting">{t(lang, 'helloName', { name: childName })}</p>}
+
+      <div className="world-map__subheader">
+        {childName && <p className="world-map__greeting">{t(lang, 'helloName', { name: childName })}</p>}
+        <div className="world-tabs">
+          {worlds.map((w) => (
+            <button
+              key={w.id}
+              className={`world-tab ${w.id === world.id ? 'world-tab--active' : ''}`}
+              data-testid={`world-${w.id}`}
+              onClick={() => void setWorld(w.id)}
+            >
+              {WORLD_EMOJI[w.id]}
+            </button>
+          ))}
+        </div>
+      </div>
 
       <div className="world-map__valley">
         {world.missions.map((mission, i) => {
@@ -73,7 +101,7 @@ export function WorldMap() {
           )
         })}
         <div className="world-map__guide">
-          <GuideDino size={140} />
+          {world.id === 'star-station' ? <Pip size={130} /> : <GuideDino size={140} />}
         </div>
       </div>
     </div>

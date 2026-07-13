@@ -111,6 +111,31 @@ test('miss handling: wrong answer leads to retry, second miss to solve-together'
   await expect(page.locator('.progress-dot--done')).toHaveCount(1, { timeout: 30_000 })
 })
 
+test('star station: switch worlds and solve an equation mission', async ({ page }) => {
+  await stubSpeech(page)
+  await completeOnboarding(page)
+
+  await page.getByTestId('world-star-station').click()
+  await expect(page.getByTestId('world-map')).toContainText('Estação Estelar')
+
+  // ss-01 is a 5-question addition mission (deterministic under ?seed=42)
+  await page.getByTestId('mission-ss-01').click({ force: true })
+  await expect(page.getByTestId('mission-player')).toBeVisible()
+
+  for (let q = 0; q < 5; q++) {
+    await expect(page.getByTestId('mission-stage')).toHaveAttribute('data-question', String(q))
+    const answer = await page.getByTestId('pattern-equation').getAttribute('data-answer')
+    await page.getByTestId(`choice-${answer}`).click()
+  }
+
+  await expect(page.getByTestId('session-end')).toBeVisible({ timeout: 20_000 })
+  await page.getByTestId('back-to-map').click()
+
+  // world choice persisted, next mission unlocked
+  await expect(page.getByTestId('world-map')).toContainText('Estação Estelar')
+  await expect(page.getByTestId('mission-ss-02')).toBeEnabled()
+})
+
 test('touch targets on the world map are at least 64px', async ({ page }) => {
   await stubSpeech(page)
   await completeOnboarding(page)

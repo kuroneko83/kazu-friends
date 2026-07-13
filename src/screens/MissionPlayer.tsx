@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import worldData from '../../content/missions/dino-valley.json'
-import type { MissionDef, Question, WorldDef } from '../engine/types'
+import type { MissionDef, Question } from '../engine/types'
+import { missionById } from '../engine/worlds'
 import { generateMission } from '../engine/generator'
 import { speak } from '../audio/speak'
 import { useGameStore } from '../state/gameStore'
@@ -10,8 +10,7 @@ import { Pip, Star } from '../components/creatures'
 import { TapCount, type PatternMode } from '../patterns/TapCount'
 import { FeedCreature } from '../patterns/FeedCreature'
 import { NumberLineHop } from '../patterns/NumberLineHop'
-
-const world = worldData as WorldDef
+import { Equation } from '../patterns/Equation'
 
 /** ?seed=N pins question generation for Playwright; otherwise time-random */
 function missionSeed(missionId: string): number {
@@ -31,6 +30,9 @@ function promptFor(q: Question): { lineId: string; params?: Record<string, numbe
     case 'numberLineHop':
       if (q.mode === 'goto') return { lineId: 'hop.goto', params: { n: q.answer } }
       return { lineId: q.mode === 'forward' ? 'hop.forward' : 'hop.back', params: { n: q.delta } }
+    case 'equation':
+      if (q.op === 'decompose') return { lineId: 'eq.decompose', params: { n: q.a } }
+      return { lineId: q.op === 'add' ? 'eq.add' : 'eq.sub', params: { a: q.a, b: q.b } }
   }
 }
 
@@ -40,7 +42,7 @@ export function MissionPlayer() {
   const completeMission = useGameStore((s) => s.completeMission)
   const exitMission = useGameStore((s) => s.exitMission)
 
-  const def: MissionDef = world.missions.find((m) => m.id === missionId)!
+  const def: MissionDef = missionById(missionId)
   const seed = useMemo(() => missionSeed(missionId), [missionId])
   const questions = useMemo(() => generateMission(def, seed), [def, seed])
 
@@ -126,6 +128,9 @@ export function MissionPlayer() {
           )}
           {question.pattern === 'numberLineHop' && (
             <NumberLineHop question={question} lang={lang} mode={mode} onResult={handleResult} />
+          )}
+          {question.pattern === 'equation' && (
+            <Equation question={question} lang={lang} mode={mode} onResult={handleResult} />
           )}
         </div>
       )}
