@@ -25,6 +25,10 @@ function speakKana(kana: string): Promise<void> {
 export function KanaQuest({ question, lang, mode, onResult }: Props) {
   const [phase, setPhase] = useState<'pick' | 'trace'>('pick')
   const [revealed, setRevealed] = useState(false)
+  /** board pixel size once the writer mounts — the stroke-number badges need it */
+  const [boardSize, setBoardSize] = useState(0)
+  /** strokes completed so far, to light up the badges in order */
+  const [strokesDone, setStrokesDone] = useState(0)
   const traceBox = useRef<HTMLDivElement>(null)
   const writer = useRef<ReturnType<typeof HanziWriter.create> | null>(null)
   const busy = useRef(false)
@@ -67,6 +71,8 @@ export function KanaQuest({ question, lang, mode, onResult }: Props) {
 
     const el = traceBox.current!
     const size = Math.min(el.clientWidth, el.clientHeight)
+    setBoardSize(size)
+    setStrokesDone(0)
     const w = HanziWriter.create(el, question.kana, {
       width: size,
       height: size,
@@ -89,6 +95,7 @@ export function KanaQuest({ question, lang, mode, onResult }: Props) {
     const start = mode === 'together' ? w.animateCharacter().then(() => new Promise((r) => setTimeout(r, 400))) : Promise.resolve()
     void start.then(() =>
       w.quiz({
+        onCorrectStroke: (s) => setStrokesDone(s.strokeNum + 1),
         onComplete: () => {
           setTimeout(() => onResult(true), 700)
         }
@@ -143,7 +150,26 @@ export function KanaQuest({ question, lang, mode, onResult }: Props) {
           <button className="kana-replay" data-testid="kana-replay-trace" onClick={() => void speakKana(question.kana)}>
             🔊
           </button>
-          <div className="kana-trace__board" data-testid="kana-trace-board" ref={traceBox} />
+          <div className="kana-trace__wrap">
+            <div className="kana-trace__board" data-testid="kana-trace-board" ref={traceBox} />
+            {/* stroke-order numbers at each stroke's starting point, like his worksheets */}
+            {boardSize > 0 && (
+              <div className="kana-trace__badges" aria-hidden>
+                {strokeData[question.kana].medians.map((median, i) => {
+                  const scale = (boardSize - 28) / 1024
+                  return (
+                    <span
+                      key={i}
+                      className={`stroke-badge ${i < strokesDone ? 'stroke-badge--done' : ''} ${i === strokesDone ? 'stroke-badge--current' : ''}`}
+                      style={{ left: 14 + median[0][0] * scale, top: 14 + (900 - median[0][1]) * scale }}
+                    >
+                      {i + 1}
+                    </span>
+                  )
+                })}
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

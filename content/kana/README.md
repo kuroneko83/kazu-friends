@@ -4,6 +4,10 @@
 extracted from the [AnimCJK project](https://github.com/parsimonhi/animCJK)
 (`graphicsJaKana.txt`), for use with the `hanzi-writer` tracing library.
 
+Regenerate with `node scripts/build-kana-data.mjs` — it folds AnimCJK's
+auxiliary animation-pass segments into their parent strokes so every kana
+matches the official school stroke count and order (validated in the script);
+the numbered tracing in the game depends on this.
+
 Data licensing (per AnimCJK): Arphic Public License (original font outlines)
-and GNU LGPL v3+ (AnimCJK's modifications). This directory redistributes that
-data unmodified apart from filtering to the basic hiragana set.
+and GNU LGPL v3+ (AnimCJK's modifications).

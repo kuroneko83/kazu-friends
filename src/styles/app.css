@@ -941,3 +941,45 @@
   background-position: center;
   touch-action: none;
 }
+
+/* stroke-order numbers over the trace board */
+
+.kana-trace__wrap {
+  position: relative;
+}
+
+.kana-trace__badges {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.stroke-badge {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  border: 3px solid var(--color-ink-soft);
+  color: var(--color-ink);
+  font-size: 1.05rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-soft);
+}
+
+.stroke-badge--current {
+  background: var(--color-sun);
+  border-color: var(--color-star);
+  animation: reveal-pulse 0.9s ease-in-out infinite;
+}
+
+.stroke-badge--done {
+  background: var(--color-leaf);
+  border-color: var(--color-leaf);
+  color: #fff;
+  opacity: 0.55;
+}
