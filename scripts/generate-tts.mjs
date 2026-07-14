@@ -74,6 +74,8 @@ function numberWord(lang, n, gender) {
 
 const cache = existsSync(cachePath) ? JSON.parse(await readFile(cachePath, 'utf8')) : {}
 const manifest = existsSync(manifestPath) ? JSON.parse(await readFile(manifestPath, 'utf8')) : {}
+/** every key → exact text sent to TTS, for the listening-audit page (audit.html) */
+const texts = {}
 
 let synthesized = 0
 let skipped = 0
@@ -115,6 +117,7 @@ for (const lang of ['ja', 'pt']) {
     }
 
     for (const { key, file, text } of variants) {
+      texts[key] = text
       const hash = createHash('sha256').update(`${voice}:${text}`).digest('hex').slice(0, 16)
       const filePath = path.join(audioDir, lang, file)
       if (cache[key] === hash && existsSync(filePath)) {
@@ -148,6 +151,7 @@ for (const lang of ['ja', 'pt']) {
 await mkdir(audioDir, { recursive: true })
 await writeFile(cachePath, JSON.stringify(cache, null, 2))
 await writeFile(manifestPath, JSON.stringify(manifest, null, 2))
+await writeFile(path.join(audioDir, 'texts.json'), JSON.stringify(texts, null, 2))
 console.log(
   `Done: ${synthesized} synthesized, ${skipped} cached, ${parameterized} parameterized lines left to runtime synthesis.`
 )

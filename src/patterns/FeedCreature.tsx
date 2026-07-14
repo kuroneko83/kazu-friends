@@ -56,17 +56,18 @@ export function FeedCreature({ question, lang, mode, onResult }: Props) {
       <div className="feed__stage">
         <div className="feed__dino">
           <GuideDino size={200} cheer={fed.length === question.target} />
-          {/* visual scaffold after a miss: the target as numeral + dots */}
-          {mode !== 'play' && (
-            <div className="feed__scaffold" data-testid="feed-scaffold">
-              <span className="feed__scaffold-number">{question.target}</span>
+          {/* the target stays visible while playing (externalized working memory);
+              a miss upgrades it with one-to-one dots */}
+          <div className="feed__scaffold" data-testid="feed-scaffold">
+            <span className="feed__scaffold-number">{question.target}</span>
+            {mode !== 'play' && (
               <span className="feed__scaffold-dots">
                 {Array.from({ length: question.target }, (_, i) => (
                   <span key={i} className={`scaffold-dot ${i < fed.length ? 'scaffold-dot--filled' : ''}`} />
                 ))}
               </span>
-            </div>
-          )}
+            )}
+          </div>
           <div className="feed__belly" data-testid="feed-belly">
             <AnimatePresence>
               {fed.map((id) => (

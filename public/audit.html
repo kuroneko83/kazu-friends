@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>Kazu Friends — auditoria de áudio</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; background: #faf5ec; color: #3d3a4b; }
+  h1 { font-size: 1.2rem; }
+  .tabs { display: flex; gap: 8px; margin: 12px 0; position: sticky; top: 0; background: #faf5ec; padding: 8px 0; }
+  .tabs button { font-size: 1rem; padding: 10px 18px; border-radius: 999px; border: 2px solid #d9cbb0; background: #fff; cursor: pointer; }
+  .tabs button.active { background: #ffd66b; border-color: #e8b93f; }
+  .row { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 10px; background: #fff; margin-bottom: 6px; flex-wrap: wrap; }
+  .row.flagged { background: #fde8e8; outline: 2px solid #e8828f; }
+  .key { font-size: 0.72rem; color: #7a7690; min-width: 150px; word-break: break-all; }
+  .text { flex: 1; min-width: 180px; }
+  audio { height: 34px; max-width: 240px; }
+  .flag { font-size: 1.2rem; background: none; border: none; cursor: pointer; }
+  input.note { flex-basis: 100%; padding: 6px 10px; border-radius: 8px; border: 1px solid #d9cbb0; display: none; }
+  .row.flagged input.note { display: block; }
+  #export { position: fixed; right: 16px; bottom: 16px; font-size: 1rem; padding: 12px 20px; border-radius: 999px; background: #4da184; color: #fff; border: none; cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,.25); }
+  #out { width: 100%; height: 160px; margin-top: 12px; display: none; }
+</style>
+</head>
+<body>
+<h1>🔊 Auditoria de áudio — ouça cada linha e marque 🚩 o que estiver errado</h1>
+<p>As marcações ficam salvas neste aparelho. Quando terminar, toque em <b>Exportar</b> e me mande o texto.</p>
+<div class="tabs">
+  <button data-lang="pt" class="active">Português</button>
+  <button data-lang="ja">日本語</button>
+  <button data-lang="flagged">🚩 marcadas</button>
+</div>
+<div id="list"></div>
+<button id="export">Exportar marcações</button>
+<textarea id="out" readonly></textarea>
+<script>
+(async () => {
+  const [manifest, texts] = await Promise.all([
+    fetch('audio/manifest.json').then(r => r.json()),
+    fetch('audio/texts.json').then(r => r.json()).catch(() => ({}))
+  ])
+  const flags = JSON.parse(localStorage.getItem('audioFlags') || '{}')
+  const save = () => localStorage.setItem('audioFlags', JSON.stringify(flags))
+  const list = document.getElementById('list')
+  let mode = 'pt'
+
+  function render() {
+    list.innerHTML = ''
+    const keys = Object.keys(manifest).sort()
+    for (const key of keys) {
+      const lang = key.split('/')[0]
+      if (mode === 'flagged' ? !flags[key] : lang !== mode) continue
+      const row = document.createElement('div')
+      row.className = 'row' + (flags[key] ? ' flagged' : '')
+      row.innerHTML =
+        '<span class="key">' + key + '</span>' +
+        '<span class="text">' + (texts[key] ?? '') + '</span>' +
+        '<audio controls preload="none" src="' + manifest[key] + '"></audio>' +
+        '<button class="flag">' + (flags[key] ? '🚩' : '⚐') + '</button>' +
+        '<input class="note" placeholder="o que está errado?" value="' + (flags[key]?.note ?? '').replace(/"/g, '&quot;') + '" />'
+      row.querySelector('.flag').onclick = () => {
+        if (flags[key]) delete flags[key]
+        else flags[key] = { note: '' }
+        save(); render()
+      }
+      row.querySelector('.note').oninput = (e) => { if (flags[key]) { flags[key].note = e.target.value; save() } }
+      list.appendChild(row)
+    }
+  }
+
+  document.querySelectorAll('.tabs button').forEach((b) => {
+    b.onclick = () => {
+      mode = b.dataset.lang
+      document.querySelectorAll('.tabs button').forEach((x) => x.classList.toggle('active', x === b))
+      render()
+    }
+  })
+
+  document.getElementById('export').onclick = () => {
+    const out = document.getElementById('out')
+    out.style.display = 'block'
+    out.value = Object.entries(flags)
+      .map(([k, v]) => k + ' | ' + (texts[k] ?? '') + ' | ' + (v.note || 'sem nota'))
+      .join('\n') || 'nenhuma marcação'
+    out.select()
+  }
+
+  render()
+})()
+</script>
+</body>
+</html>

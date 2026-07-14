@@ -284,8 +284,7 @@
   flex: 1;
   justify-content: center;
   flex-wrap: wrap;
-  /* keep dots visually centered despite the exit button */
-  margin-right: var(--touch-min);
+  /* exit (left) and replay (right) buttons balance each other */
 }
 
 .mission__exit {
@@ -1000,4 +999,25 @@
 
 .world-map--tenten-island .map-node--locked {
   border-color: var(--color-locked);
+}
+
+/* replay + externalized number cues (evidence review F1) */
+
+.mission__replay {
+  font-size: clamp(1.3rem, 3.6vmin, 1.8rem);
+  min-width: var(--touch-min);
+  min-height: var(--touch-min);
+  border-radius: var(--radius-full);
+  background: var(--color-sun);
+  box-shadow: var(--shadow-soft);
+}
+
+.hop__scaffold-number,
+.feed__scaffold-number {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  background: var(--color-sun);
+  border-radius: var(--radius-full);
+  padding: 2px 20px;
+  box-shadow: var(--shadow-soft);
 }

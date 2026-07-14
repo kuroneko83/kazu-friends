@@ -125,6 +125,19 @@ export function MissionPlayer() {
           🏠
         </button>
         <ProgressDots total={questions.length} done={qIndex + (chest ? 1 : 0)} />
+        {/* replay the prompt on demand — externalized memory support, never a penalty */}
+        {!chest && (
+          <button
+            className="mission__replay"
+            data-testid="replay-prompt"
+            onClick={() => {
+              const { lineId, params } = promptFor(question)
+              void speak(lineId, { lang, params })
+            }}
+          >
+            🔊
+          </button>
+        )}
       </header>
 
       {!chest && (

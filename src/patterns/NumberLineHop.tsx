@@ -52,15 +52,19 @@ export function NumberLineHop({ question, lang, mode, onResult }: Props) {
 
   return (
     <div className="pattern pattern--hop" data-testid="pattern-hop">
-      {/* visual scaffold after a miss: hop count shown as dots */}
-      {mode !== 'play' && question.mode !== 'goto' && (
-        <div className="hop__scaffold" data-testid="hop-scaffold">
-          {Array.from({ length: question.delta }, (_, i) => (
+      {/* the spoken number stays visible while playing (externalized working
+          memory); a miss upgrades the cue with countable dots */}
+      <div className="hop__scaffold" data-testid="hop-scaffold">
+        <span className="hop__scaffold-number">{question.mode === 'goto' ? question.answer : question.delta}</span>
+        {mode !== 'play' &&
+          question.mode !== 'goto' &&
+          Array.from({ length: question.delta }, (_, i) => (
             <span key={i} className="scaffold-dot scaffold-dot--filled" />
           ))}
+        {question.mode !== 'goto' && (
           <span className="hop__scaffold-arrow">{question.mode === 'forward' ? '→' : '←'}</span>
-        </div>
-      )}
+        )}
+      </div>
       <div className="hop__line" data-testid="hop-line">
         {Array.from({ length: question.max + 1 }, (_, n) => (
           <button
