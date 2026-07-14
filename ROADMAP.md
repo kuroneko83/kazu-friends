@@ -68,8 +68,13 @@ matched to them (as with `math_worksheets/` for Star Station).
 
 ## Known issues / backlog
 
-- **Portuguese audio bugs** — reported by dad (July 2026), details TBD; next
-  fix session starts here.
+- **Evidence review findings** — see `docs/evidence-review-2026-07.md`
+  (evaluation of the game against the research base in `docs_evidencias/`,
+  local-only folder). Order of attack: PT audio audit → externalize spoken
+  numbers in feed/hop + replay buttons → subitizable arrangements → warm-up
+  review mode → process-praise lines.
+- **Portuguese audio bugs** — reported by dad (July 2026), details TBD; folds
+  into the F2 systematic PT audio audit from the evidence review.
 - Palm rejection on the tracing board (watch his playtests; add if his palm
   triggers strokes).
 - GitHub Actions warn about Node 20 deprecation in action versions — bump
