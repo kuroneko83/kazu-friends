@@ -1,4 +1,4 @@
-export type PatternId = 'tapCount' | 'feed' | 'numberLineHop' | 'equation' | 'compare' | 'train'
+export type PatternId = 'tapCount' | 'feed' | 'numberLineHop' | 'equation' | 'compare' | 'train' | 'kana'
 
 export type EquationOp = 'add' | 'sub' | 'decompose'
 
@@ -63,7 +63,15 @@ export interface TrainQuestion {
   choices: number[]
 }
 
-export type Question = TapCountQuestion | FeedQuestion | HopQuestion | EquationQuestion | CompareQuestion | TrainQuestion
+/** Pattern 7: hear a kana, tap it among three cards, then trace it stroke by stroke */
+export interface KanaQuestion {
+  pattern: 'kana'
+  kana: string
+  /** three kana cards, the target plus review distractors */
+  choices: string[]
+}
+
+export type Question = TapCountQuestion | FeedQuestion | HopQuestion | EquationQuestion | CompareQuestion | TrainQuestion | KanaQuestion
 
 export interface MissionDef {
   id: string
@@ -82,6 +90,10 @@ export interface MissionDef {
     forms?: string[]
     /** number-train increment (1 = count on, 2 = count by twos) */
     step?: number
+    /** kana row taught by this mission, in school order (e.g. "あいうえお") */
+    kanas?: string
+    /** kana learned so far — the pool review distractors are drawn from */
+    pool?: string
   }
   stars: number
 }

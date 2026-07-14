@@ -1,50 +1,390 @@
 {
-  "num.1": { "text": "いち", "character": "pip" },
-  "num.2": { "text": "に", "character": "pip" },
-  "num.3": { "text": "さん", "character": "pip" },
-  "num.4": { "text": "よん", "character": "pip" },
-  "num.5": { "text": "ご", "character": "pip" },
-  "num.6": { "text": "ろく", "character": "pip" },
-  "num.7": { "text": "なな", "character": "pip" },
-  "num.8": { "text": "はち", "character": "pip" },
-  "num.9": { "text": "きゅう", "character": "pip" },
-  "num.10": { "text": "じゅう", "character": "pip" },
-  "num.11": { "text": "じゅういち", "character": "pip" },
-  "num.12": { "text": "じゅうに", "character": "pip" },
-  "num.13": { "text": "じゅうさん", "character": "pip" },
-  "num.14": { "text": "じゅうよん", "character": "pip" },
-  "num.15": { "text": "じゅうご", "character": "pip" },
-  "num.16": { "text": "じゅうろく", "character": "pip" },
-  "num.17": { "text": "じゅうなな", "character": "pip" },
-  "num.18": { "text": "じゅうはち", "character": "pip" },
-  "num.19": { "text": "じゅうきゅう", "character": "pip" },
-  "num.20": { "text": "にじゅう", "character": "pip" },
-  "welcome": { "text": "ダイノバレーへ ようこそ!", "character": "guide" },
-  "welcome.star-station": { "text": "スターステーションへ ようこそ!", "character": "guide" },
-  "welcome.whisker-woods": { "text": "ねこのもりへ ようこそ!", "character": "guide" },
-  "compare.more": { "text": "どっちが おおいかな? タッチしてね!", "character": "guide" },
-  "compare.fewer": { "text": "どっちが すくないかな? タッチしてね!", "character": "guide" },
-  "train.shape": { "text": "でんしゃを みて! つぎは どれかな?", "character": "guide" },
-  "train.number": { "text": "つぎの かずは なにかな?", "character": "guide" },
-  "map.pick": { "text": "ミッションを タッチしてね!", "character": "guide" },
-  "tapcount.prompt": { "text": "きょうりゅうを タッチして かぞえよう!", "character": "guide" },
-  "tapcount.howmany": { "text": "ぜんぶで いくつかな?", "character": "guide" },
-  "feed.prompt": { "text": "ダイノに くだものを {n}こ あげてね!", "character": "guide" },
-  "eq.add": { "text": "{a} たす {b}は いくつかな?", "character": "guide" },
-  "eq.sub": { "text": "{a} ひく {b}は いくつかな?", "character": "guide" },
-  "eq.decompose": { "text": "{n}は 10と いくつかな?", "character": "guide" },
-  "hop.goto": { "text": "{n}まで ジャンプしてね!", "character": "guide" },
-  "hop.forward": { "text": "{n}こ まえに ジャンプ! どこに ついたかな?", "character": "guide" },
-  "hop.back": { "text": "{n}こ うしろに ジャンプ! どこに ついたかな?", "character": "guide" },
-  "praise.1": { "text": "すごい!", "character": "guide" },
-  "praise.2": { "text": "やったね!", "character": "pip" },
-  "praise.3": { "text": "できたね!", "character": "guide" },
-  "praise.4": { "text": "バッチリ!", "character": "pip" },
-  "retry": { "text": "おしい! もういちど やってみよう!", "character": "guide" },
-  "together": { "text": "いっしょに やってみよう!", "character": "guide" },
-  "together.done": { "text": "ほらね! いっしょに できたね!", "character": "guide" },
-  "mission.done": { "text": "ミッション クリア!", "character": "guide" },
-  "stars.won": { "text": "スターを ゲット!", "character": "pip" },
-  "end.goodbye": { "text": "きょうは よくがんばったね!", "character": "guide" },
-  "end.tomorrow": { "text": "また あしたね! バイバイ!", "character": "pip" }
+  "num.1": {
+    "text": "いち",
+    "character": "pip"
+  },
+  "num.2": {
+    "text": "に",
+    "character": "pip"
+  },
+  "num.3": {
+    "text": "さん",
+    "character": "pip"
+  },
+  "num.4": {
+    "text": "よん",
+    "character": "pip"
+  },
+  "num.5": {
+    "text": "ご",
+    "character": "pip"
+  },
+  "num.6": {
+    "text": "ろく",
+    "character": "pip"
+  },
+  "num.7": {
+    "text": "なな",
+    "character": "pip"
+  },
+  "num.8": {
+    "text": "はち",
+    "character": "pip"
+  },
+  "num.9": {
+    "text": "きゅう",
+    "character": "pip"
+  },
+  "num.10": {
+    "text": "じゅう",
+    "character": "pip"
+  },
+  "num.11": {
+    "text": "じゅういち",
+    "character": "pip"
+  },
+  "num.12": {
+    "text": "じゅうに",
+    "character": "pip"
+  },
+  "num.13": {
+    "text": "じゅうさん",
+    "character": "pip"
+  },
+  "num.14": {
+    "text": "じゅうよん",
+    "character": "pip"
+  },
+  "num.15": {
+    "text": "じゅうご",
+    "character": "pip"
+  },
+  "num.16": {
+    "text": "じゅうろく",
+    "character": "pip"
+  },
+  "num.17": {
+    "text": "じゅうなな",
+    "character": "pip"
+  },
+  "num.18": {
+    "text": "じゅうはち",
+    "character": "pip"
+  },
+  "num.19": {
+    "text": "じゅうきゅう",
+    "character": "pip"
+  },
+  "num.20": {
+    "text": "にじゅう",
+    "character": "pip"
+  },
+  "welcome": {
+    "text": "ダイノバレーへ ようこそ!",
+    "character": "guide"
+  },
+  "welcome.star-station": {
+    "text": "スターステーションへ ようこそ!",
+    "character": "guide"
+  },
+  "welcome.whisker-woods": {
+    "text": "ねこのもりへ ようこそ!",
+    "character": "guide"
+  },
+  "compare.more": {
+    "text": "どっちが おおいかな? タッチしてね!",
+    "character": "guide"
+  },
+  "compare.fewer": {
+    "text": "どっちが すくないかな? タッチしてね!",
+    "character": "guide"
+  },
+  "train.shape": {
+    "text": "でんしゃを みて! つぎは どれかな?",
+    "character": "guide"
+  },
+  "train.number": {
+    "text": "つぎの かずは なにかな?",
+    "character": "guide"
+  },
+  "map.pick": {
+    "text": "ミッションを タッチしてね!",
+    "character": "guide"
+  },
+  "tapcount.prompt": {
+    "text": "きょうりゅうを タッチして かぞえよう!",
+    "character": "guide"
+  },
+  "tapcount.howmany": {
+    "text": "ぜんぶで いくつかな?",
+    "character": "guide"
+  },
+  "feed.prompt": {
+    "text": "ダイノに くだものを {n}こ あげてね!",
+    "character": "guide"
+  },
+  "eq.add": {
+    "text": "{a} たす {b}は いくつかな?",
+    "character": "guide"
+  },
+  "eq.sub": {
+    "text": "{a} ひく {b}は いくつかな?",
+    "character": "guide"
+  },
+  "eq.decompose": {
+    "text": "{n}は 10と いくつかな?",
+    "character": "guide"
+  },
+  "hop.goto": {
+    "text": "{n}まで ジャンプしてね!",
+    "character": "guide"
+  },
+  "hop.forward": {
+    "text": "{n}こ まえに ジャンプ! どこに ついたかな?",
+    "character": "guide"
+  },
+  "hop.back": {
+    "text": "{n}こ うしろに ジャンプ! どこに ついたかな?",
+    "character": "guide"
+  },
+  "praise.1": {
+    "text": "すごい!",
+    "character": "guide"
+  },
+  "praise.2": {
+    "text": "やったね!",
+    "character": "pip"
+  },
+  "praise.3": {
+    "text": "できたね!",
+    "character": "guide"
+  },
+  "praise.4": {
+    "text": "バッチリ!",
+    "character": "pip"
+  },
+  "retry": {
+    "text": "おしい! もういちど やってみよう!",
+    "character": "guide"
+  },
+  "together": {
+    "text": "いっしょに やってみよう!",
+    "character": "guide"
+  },
+  "together.done": {
+    "text": "ほらね! いっしょに できたね!",
+    "character": "guide"
+  },
+  "mission.done": {
+    "text": "ミッション クリア!",
+    "character": "guide"
+  },
+  "stars.won": {
+    "text": "スターを ゲット!",
+    "character": "pip"
+  },
+  "end.goodbye": {
+    "text": "きょうは よくがんばったね!",
+    "character": "guide"
+  },
+  "end.tomorrow": {
+    "text": "また あしたね! バイバイ!",
+    "character": "pip"
+  },
+  "welcome.hiragana-island": {
+    "text": "ひらがなのしまへ ようこそ!",
+    "character": "guide"
+  },
+  "kana.pick": {
+    "text": "よくきいてね! どのじかな?",
+    "character": "guide"
+  },
+  "kana.trace": {
+    "text": "ゆびで かいてみよう!",
+    "character": "guide"
+  },
+  "kana.あ": {
+    "text": "ア",
+    "character": "pip"
+  },
+  "kana.い": {
+    "text": "イ",
+    "character": "pip"
+  },
+  "kana.う": {
+    "text": "ウ",
+    "character": "pip"
+  },
+  "kana.え": {
+    "text": "エ",
+    "character": "pip"
+  },
+  "kana.お": {
+    "text": "オ",
+    "character": "pip"
+  },
+  "kana.か": {
+    "text": "カ",
+    "character": "pip"
+  },
+  "kana.き": {
+    "text": "キ",
+    "character": "pip"
+  },
+  "kana.く": {
+    "text": "ク",
+    "character": "pip"
+  },
+  "kana.け": {
+    "text": "ケ",
+    "character": "pip"
+  },
+  "kana.こ": {
+    "text": "コ",
+    "character": "pip"
+  },
+  "kana.さ": {
+    "text": "サ",
+    "character": "pip"
+  },
+  "kana.し": {
+    "text": "シ",
+    "character": "pip"
+  },
+  "kana.す": {
+    "text": "ス",
+    "character": "pip"
+  },
+  "kana.せ": {
+    "text": "セ",
+    "character": "pip"
+  },
+  "kana.そ": {
+    "text": "ソ",
+    "character": "pip"
+  },
+  "kana.た": {
+    "text": "タ",
+    "character": "pip"
+  },
+  "kana.ち": {
+    "text": "チ",
+    "character": "pip"
+  },
+  "kana.つ": {
+    "text": "ツ",
+    "character": "pip"
+  },
+  "kana.て": {
+    "text": "テ",
+    "character": "pip"
+  },
+  "kana.と": {
+    "text": "ト",
+    "character": "pip"
+  },
+  "kana.な": {
+    "text": "ナ",
+    "character": "pip"
+  },
+  "kana.に": {
+    "text": "ニ",
+    "character": "pip"
+  },
+  "kana.ぬ": {
+    "text": "ヌ",
+    "character": "pip"
+  },
+  "kana.ね": {
+    "text": "ネ",
+    "character": "pip"
+  },
+  "kana.の": {
+    "text": "ノ",
+    "character": "pip"
+  },
+  "kana.は": {
+    "text": "ハ",
+    "character": "pip"
+  },
+  "kana.ひ": {
+    "text": "ヒ",
+    "character": "pip"
+  },
+  "kana.ふ": {
+    "text": "フ",
+    "character": "pip"
+  },
+  "kana.へ": {
+    "text": "ヘ",
+    "character": "pip"
+  },
+  "kana.ほ": {
+    "text": "ホ",
+    "character": "pip"
+  },
+  "kana.ま": {
+    "text": "マ",
+    "character": "pip"
+  },
+  "kana.み": {
+    "text": "ミ",
+    "character": "pip"
+  },
+  "kana.む": {
+    "text": "ム",
+    "character": "pip"
+  },
+  "kana.め": {
+    "text": "メ",
+    "character": "pip"
+  },
+  "kana.も": {
+    "text": "モ",
+    "character": "pip"
+  },
+  "kana.や": {
+    "text": "ヤ",
+    "character": "pip"
+  },
+  "kana.ゆ": {
+    "text": "ユ",
+    "character": "pip"
+  },
+  "kana.よ": {
+    "text": "ヨ",
+    "character": "pip"
+  },
+  "kana.ら": {
+    "text": "ラ",
+    "character": "pip"
+  },
+  "kana.り": {
+    "text": "リ",
+    "character": "pip"
+  },
+  "kana.る": {
+    "text": "ル",
+    "character": "pip"
+  },
+  "kana.れ": {
+    "text": "レ",
+    "character": "pip"
+  },
+  "kana.ろ": {
+    "text": "ロ",
+    "character": "pip"
+  },
+  "kana.わ": {
+    "text": "ワ",
+    "character": "pip"
+  },
+  "kana.を": {
+    "text": "ヲ",
+    "character": "pip"
+  },
+  "kana.ん": {
+    "text": "ン",
+    "character": "pip"
+  }
 }

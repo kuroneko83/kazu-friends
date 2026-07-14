@@ -13,6 +13,7 @@ import { NumberLineHop } from '../patterns/NumberLineHop'
 import { Equation } from '../patterns/Equation'
 import { Compare } from '../patterns/Compare'
 import { Train } from '../patterns/Train'
+import { KanaQuest } from '../patterns/KanaQuest'
 
 /** ?seed=N pins question generation for Playwright; otherwise time-random */
 function missionSeed(missionId: string): number {
@@ -39,6 +40,8 @@ function promptFor(q: Question): { lineId: string; params?: Record<string, numbe
       return { lineId: q.mode === 'more' ? 'compare.more' : 'compare.fewer' }
     case 'train':
       return { lineId: q.mode === 'shape' ? 'train.shape' : 'train.number' }
+    case 'kana':
+      return { lineId: 'kana.pick' }
   }
 }
 
@@ -143,6 +146,9 @@ export function MissionPlayer() {
           )}
           {question.pattern === 'train' && (
             <Train question={question} lang={lang} mode={mode} onResult={handleResult} />
+          )}
+          {question.pattern === 'kana' && (
+            <KanaQuest question={question} lang={lang} mode={mode} onResult={handleResult} />
           )}
         </div>
       )}

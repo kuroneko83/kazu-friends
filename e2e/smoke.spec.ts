@@ -163,6 +163,29 @@ test('whisker woods: compare and train missions solvable', async ({ page }) => {
   await expect(page.getByTestId('session-end')).toBeVisible({ timeout: 20_000 })
 })
 
+test('hiragana island: pick the kana then trace it', async ({ page }) => {
+  await stubSpeech(page)
+  // headless CI can't hand-draw strokes; the pattern auto-passes the trace stage
+  await page.addInitScript(() => {
+    ;(window as unknown as { __autoTrace?: boolean }).__autoTrace = true
+  })
+  await completeOnboarding(page)
+
+  await page.getByTestId('world-hiragana-island').click()
+  await expect(page.getByTestId('world-map')).toContainText('Ilha do Hiragana')
+
+  // hi-01 teaches あいうえお in school order, one question per kana
+  await page.getByTestId('mission-hi-01').click({ force: true })
+  for (let q = 0; q < 5; q++) {
+    await expect(page.getByTestId('mission-stage')).toHaveAttribute('data-question', String(q))
+    const kana = await page.getByTestId('pattern-kana').getAttribute('data-answer')
+    await page.getByTestId(`kana-choice-${kana}`).click()
+    // tapping right flips the question into the tracing stage
+    await expect(page.getByTestId('pattern-kana')).toHaveAttribute('data-phase', 'trace')
+  }
+  await expect(page.getByTestId('session-end')).toBeVisible({ timeout: 20_000 })
+})
+
 test('touch targets on the world map are at least 64px', async ({ page }) => {
   await stubSpeech(page)
   await completeOnboarding(page)

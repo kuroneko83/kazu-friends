@@ -1,0 +1,15 @@
+{
+  "id": "hiragana-island",
+  "missions": [
+    { "id": "hi-01", "pattern": "kana", "questions": 5, "params": { "kanas": "あいうえお", "pool": "あいうえお" }, "stars": 3 },
+    { "id": "hi-02", "pattern": "kana", "questions": 5, "params": { "kanas": "かきくけこ", "pool": "あいうえおかきくけこ" }, "stars": 3 },
+    { "id": "hi-03", "pattern": "kana", "questions": 5, "params": { "kanas": "さしすせそ", "pool": "あいうえおかきくけこさしすせそ" }, "stars": 3 },
+    { "id": "hi-04", "pattern": "kana", "questions": 5, "params": { "kanas": "たちつてと", "pool": "あいうえおかきくけこさしすせそたちつてと" }, "stars": 3 },
+    { "id": "hi-05", "pattern": "kana", "questions": 5, "params": { "kanas": "なにぬねの", "pool": "あいうえおかきくけこさしすせそたちつてとなにぬねの" }, "stars": 3 },
+    { "id": "hi-06", "pattern": "kana", "questions": 5, "params": { "kanas": "はひふへほ", "pool": "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほ" }, "stars": 4 },
+    { "id": "hi-07", "pattern": "kana", "questions": 5, "params": { "kanas": "まみむめも", "pool": "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめも" }, "stars": 4 },
+    { "id": "hi-08", "pattern": "kana", "questions": 5, "params": { "kanas": "やゆよ", "pool": "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよ" }, "stars": 4 },
+    { "id": "hi-09", "pattern": "kana", "questions": 5, "params": { "kanas": "らりるれろ", "pool": "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろ" }, "stars": 4 },
+    { "id": "hi-10", "pattern": "kana", "questions": 5, "params": { "kanas": "わをん", "pool": "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん" }, "stars": 5 }
+  ]
+}

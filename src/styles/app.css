@@ -876,3 +876,68 @@
   border-radius: var(--radius-full);
   padding: 1px 8px;
 }
+
+/* ---------- world: hiragana island ---------- */
+
+.world-map--hiragana-island {
+  background: linear-gradient(180deg, #cde8f5 0%, #eaf3dc 55%, #fdeef4 100%);
+}
+
+.world-map--hiragana-island .map-node {
+  border-color: #e896b8;
+}
+
+.world-map--hiragana-island .map-node--done {
+  border-color: var(--color-star);
+}
+
+.world-map--hiragana-island .map-node--locked {
+  border-color: var(--color-locked);
+}
+
+/* ---------- pattern: kana ---------- */
+
+.pattern--kana {
+  position: relative;
+}
+
+.kana-card {
+  width: clamp(110px, 24vmin, 170px);
+  height: clamp(110px, 24vmin, 170px);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-pop);
+  font-size: clamp(3.4rem, 13vmin, 5.6rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.kana-replay {
+  font-size: clamp(1.6rem, 4.5vmin, 2.2rem);
+  min-width: 64px;
+  min-height: 64px;
+  border-radius: var(--radius-full);
+  background: var(--color-sun);
+  box-shadow: var(--shadow-soft);
+}
+
+.kana-trace {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(10px, 2.5vmin, 18px);
+}
+
+.kana-trace__board {
+  width: clamp(260px, 52vmin, 420px);
+  height: clamp(260px, 52vmin, 420px);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-pop);
+  /* squared paper feel, like his genkouyoushi homework */
+  background-image: linear-gradient(var(--color-locked) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-locked) 1px, transparent 1px);
+  background-size: 50% 50%;
+  background-position: center;
+  touch-action: none;
+}

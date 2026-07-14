@@ -1,54 +1,209 @@
 {
-  "num.1": { "text": "1", "character": "pip" },
-  "num.2": { "text": "2", "character": "pip" },
-  "num.3": { "text": "3", "character": "pip" },
-  "num.4": { "text": "4", "character": "pip" },
-  "num.5": { "text": "5", "character": "pip" },
-  "num.6": { "text": "6", "character": "pip" },
-  "num.7": { "text": "7", "character": "pip" },
-  "num.8": { "text": "8", "character": "pip" },
-  "num.9": { "text": "9", "character": "pip" },
-  "num.10": { "text": "10", "character": "pip" },
-  "num.11": { "text": "11", "character": "pip" },
-  "num.12": { "text": "12", "character": "pip" },
-  "num.13": { "text": "13", "character": "pip" },
-  "num.14": { "text": "14", "character": "pip" },
-  "num.15": { "text": "15", "character": "pip" },
-  "num.16": { "text": "16", "character": "pip" },
-  "num.17": { "text": "17", "character": "pip" },
-  "num.18": { "text": "18", "character": "pip" },
-  "num.19": { "text": "19", "character": "pip" },
-  "num.20": { "text": "20", "character": "pip" },
-  "welcome": { "text": "Bem-vindo ao Vale dos Dinos!", "character": "guide" },
-  "welcome.star-station": { "text": "Bem-vindo à Estação Estelar!", "character": "guide" },
-  "welcome.whisker-woods": { "text": "Bem-vindo ao Bosque dos Gatinhos!", "character": "guide" },
-  "compare.more": { "text": "Qual grupo tem mais? Toque nele!", "character": "guide" },
-  "compare.fewer": { "text": "Qual grupo tem menos? Toque nele!", "character": "guide" },
-  "train.shape": { "text": "Olha o trem! O que vem depois?", "character": "guide" },
-  "train.number": { "text": "Que número vem depois?", "character": "guide" },
-  "map.pick": { "text": "Toque numa missão para começar!", "character": "guide" },
-  "tapcount.prompt": { "text": "Toque nos dinossauros e conte!", "character": "guide" },
-  "tapcount.howmany": { "text": "Quantos são?", "character": "guide" },
-  "feed.prompt": {
-    "text": "Dê {n:f} frutinhas para o dino!",
-    "variants": { "n=1": "Dê uma frutinha para o dino!" },
+  "num.1": {
+    "text": "1",
+    "character": "pip"
+  },
+  "num.2": {
+    "text": "2",
+    "character": "pip"
+  },
+  "num.3": {
+    "text": "3",
+    "character": "pip"
+  },
+  "num.4": {
+    "text": "4",
+    "character": "pip"
+  },
+  "num.5": {
+    "text": "5",
+    "character": "pip"
+  },
+  "num.6": {
+    "text": "6",
+    "character": "pip"
+  },
+  "num.7": {
+    "text": "7",
+    "character": "pip"
+  },
+  "num.8": {
+    "text": "8",
+    "character": "pip"
+  },
+  "num.9": {
+    "text": "9",
+    "character": "pip"
+  },
+  "num.10": {
+    "text": "10",
+    "character": "pip"
+  },
+  "num.11": {
+    "text": "11",
+    "character": "pip"
+  },
+  "num.12": {
+    "text": "12",
+    "character": "pip"
+  },
+  "num.13": {
+    "text": "13",
+    "character": "pip"
+  },
+  "num.14": {
+    "text": "14",
+    "character": "pip"
+  },
+  "num.15": {
+    "text": "15",
+    "character": "pip"
+  },
+  "num.16": {
+    "text": "16",
+    "character": "pip"
+  },
+  "num.17": {
+    "text": "17",
+    "character": "pip"
+  },
+  "num.18": {
+    "text": "18",
+    "character": "pip"
+  },
+  "num.19": {
+    "text": "19",
+    "character": "pip"
+  },
+  "num.20": {
+    "text": "20",
+    "character": "pip"
+  },
+  "welcome": {
+    "text": "Bem-vindo ao Vale dos Dinos!",
     "character": "guide"
   },
-  "eq.add": { "text": "Quanto é {a} mais {b}?", "character": "guide" },
-  "eq.sub": { "text": "Quanto é {a} menos {b}?", "character": "guide" },
-  "eq.decompose": { "text": "{n} é 10 mais quanto?", "character": "guide" },
-  "hop.goto": { "text": "Pule até o número {n}!", "character": "guide" },
-  "hop.forward": { "text": "Agora pule {n} para a frente! Onde você chegou?", "character": "guide" },
-  "hop.back": { "text": "Agora pule {n} para trás! Onde você chegou?", "character": "guide" },
-  "praise.1": { "text": "Muito bem!", "character": "guide" },
-  "praise.2": { "text": "Incrível!", "character": "pip" },
-  "praise.3": { "text": "Você conseguiu!", "character": "guide" },
-  "praise.4": { "text": "Uhuu! Demais!", "character": "pip" },
-  "retry": { "text": "Quase! Vamos tentar de novo!", "character": "guide" },
-  "together": { "text": "Vamos resolver juntos!", "character": "guide" },
-  "together.done": { "text": "Viu? Conseguimos juntos!", "character": "guide" },
-  "mission.done": { "text": "Missão completa!", "character": "guide" },
-  "stars.won": { "text": "Você ganhou estrelas!", "character": "pip" },
-  "end.goodbye": { "text": "Tchau! Você foi demais hoje!", "character": "guide" },
-  "end.tomorrow": { "text": "Até amanhã!", "character": "pip" }
+  "welcome.star-station": {
+    "text": "Bem-vindo à Estação Estelar!",
+    "character": "guide"
+  },
+  "welcome.whisker-woods": {
+    "text": "Bem-vindo ao Bosque dos Gatinhos!",
+    "character": "guide"
+  },
+  "compare.more": {
+    "text": "Qual grupo tem mais? Toque nele!",
+    "character": "guide"
+  },
+  "compare.fewer": {
+    "text": "Qual grupo tem menos? Toque nele!",
+    "character": "guide"
+  },
+  "train.shape": {
+    "text": "Olha o trem! O que vem depois?",
+    "character": "guide"
+  },
+  "train.number": {
+    "text": "Que número vem depois?",
+    "character": "guide"
+  },
+  "map.pick": {
+    "text": "Toque numa missão para começar!",
+    "character": "guide"
+  },
+  "tapcount.prompt": {
+    "text": "Toque nos dinossauros e conte!",
+    "character": "guide"
+  },
+  "tapcount.howmany": {
+    "text": "Quantos são?",
+    "character": "guide"
+  },
+  "feed.prompt": {
+    "text": "Dê {n:f} frutinhas para o dino!",
+    "variants": {
+      "n=1": "Dê uma frutinha para o dino!"
+    },
+    "character": "guide"
+  },
+  "eq.add": {
+    "text": "Quanto é {a} mais {b}?",
+    "character": "guide"
+  },
+  "eq.sub": {
+    "text": "Quanto é {a} menos {b}?",
+    "character": "guide"
+  },
+  "eq.decompose": {
+    "text": "{n} é 10 mais quanto?",
+    "character": "guide"
+  },
+  "hop.goto": {
+    "text": "Pule até o número {n}!",
+    "character": "guide"
+  },
+  "hop.forward": {
+    "text": "Agora pule {n} para a frente! Onde você chegou?",
+    "character": "guide"
+  },
+  "hop.back": {
+    "text": "Agora pule {n} para trás! Onde você chegou?",
+    "character": "guide"
+  },
+  "praise.1": {
+    "text": "Muito bem!",
+    "character": "guide"
+  },
+  "praise.2": {
+    "text": "Incrível!",
+    "character": "pip"
+  },
+  "praise.3": {
+    "text": "Você conseguiu!",
+    "character": "guide"
+  },
+  "praise.4": {
+    "text": "Uhuu! Demais!",
+    "character": "pip"
+  },
+  "retry": {
+    "text": "Quase! Vamos tentar de novo!",
+    "character": "guide"
+  },
+  "together": {
+    "text": "Vamos resolver juntos!",
+    "character": "guide"
+  },
+  "together.done": {
+    "text": "Viu? Conseguimos juntos!",
+    "character": "guide"
+  },
+  "mission.done": {
+    "text": "Missão completa!",
+    "character": "guide"
+  },
+  "stars.won": {
+    "text": "Você ganhou estrelas!",
+    "character": "pip"
+  },
+  "end.goodbye": {
+    "text": "Tchau! Você foi demais hoje!",
+    "character": "guide"
+  },
+  "end.tomorrow": {
+    "text": "Até amanhã!",
+    "character": "pip"
+  },
+  "welcome.hiragana-island": {
+    "text": "Bem-vindo à Ilha do Hiragana!",
+    "character": "guide"
+  },
+  "kana.pick": {
+    "text": "Escuta bem! Qual é essa letrinha?",
+    "character": "guide"
+  },
+  "kana.trace": {
+    "text": "Agora escreve com o dedo!",
+    "character": "guide"
+  }
 }

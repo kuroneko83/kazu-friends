@@ -144,6 +144,15 @@ export function generateMission(def: MissionDef, seed: number): Question[] {
         }
         break
       }
+      case 'kana': {
+        const kanas = [...(def.params.kanas ?? 'あいうえお')]
+        const pool = [...(def.params.pool ?? def.params.kanas ?? 'あいうえお')]
+        // school order on purpose: predictable sequence is kinder while learning
+        const kana = kanas[i % kanas.length]
+        const distractors = shuffle(rng, pool.filter((k) => k !== kana)).slice(0, 2)
+        questions.push({ pattern: 'kana', kana, choices: shuffle(rng, [kana, ...distractors]) })
+        break
+      }
       case 'numberLineHop': {
         const max = def.params.max ?? 10
         const modes = def.params.modes ?? ['goto']
