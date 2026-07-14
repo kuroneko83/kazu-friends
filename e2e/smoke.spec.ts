@@ -186,6 +186,31 @@ test('hiragana island: pick the kana then trace it', async ({ page }) => {
   await expect(page.getByTestId('session-end')).toBeVisible({ timeout: 20_000 })
 })
 
+test('tenten island: voiced kana and recognition-only combos', async ({ page }) => {
+  await stubSpeech(page)
+  await page.addInitScript(() => {
+    ;(window as unknown as { __autoTrace?: boolean }).__autoTrace = true
+  })
+  await completeOnboarding(page)
+
+  await page.getByTestId('world-tenten-island').click()
+  await expect(page.getByTestId('world-map')).toContainText('Ilha dos Pontinhos')
+
+  // tt-01: voiced kana with tracing (5 questions)
+  await page.getByTestId('mission-tt-01').click({ force: true })
+  for (let q = 0; q < 5; q++) {
+    await expect(page.getByTestId('mission-stage')).toHaveAttribute('data-question', String(q))
+    const kana = await page.getByTestId('pattern-kana').getAttribute('data-answer')
+    await page.getByTestId(`kana-choice-${kana}`).click()
+  }
+  await expect(page.getByTestId('session-end')).toBeVisible({ timeout: 20_000 })
+  await page.getByTestId('back-to-map').click()
+
+  // jump ahead is locked; verify tt-02 unlocked and a combo mission is listed
+  await expect(page.getByTestId('mission-tt-02')).toBeEnabled()
+  await expect(page.getByTestId('mission-tt-07')).toBeDisabled()
+})
+
 test('touch targets on the world map are at least 64px', async ({ page }) => {
   await stubSpeech(page)
   await completeOnboarding(page)

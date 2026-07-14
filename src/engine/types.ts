@@ -90,10 +90,11 @@ export interface MissionDef {
     forms?: string[]
     /** number-train increment (1 = count on, 2 = count by twos) */
     step?: number
-    /** kana row taught by this mission, in school order (e.g. "あいうえお") */
-    kanas?: string
+    /** kana taught by this mission, in school order — a string of single kana
+     *  ("あいうえお") or an array for multi-char units (["きゃ", "きゅ"]) */
+    kanas?: string | string[]
     /** kana learned so far — the pool review distractors are drawn from */
-    pool?: string
+    pool?: string | string[]
   }
   stars: number
 }

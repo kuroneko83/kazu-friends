@@ -386,5 +386,241 @@
   "kana.ん": {
     "text": "ン",
     "character": "pip"
+  },
+  "welcome.tenten-island": {
+    "text": "てんてんのしまへ ようこそ!",
+    "character": "guide"
+  },
+  "kana.が": {
+    "text": "ガ",
+    "character": "pip"
+  },
+  "kana.ぎ": {
+    "text": "ギ",
+    "character": "pip"
+  },
+  "kana.ぐ": {
+    "text": "グ",
+    "character": "pip"
+  },
+  "kana.げ": {
+    "text": "ゲ",
+    "character": "pip"
+  },
+  "kana.ご": {
+    "text": "ゴ",
+    "character": "pip"
+  },
+  "kana.ざ": {
+    "text": "ザ",
+    "character": "pip"
+  },
+  "kana.じ": {
+    "text": "ジ",
+    "character": "pip"
+  },
+  "kana.ず": {
+    "text": "ズ",
+    "character": "pip"
+  },
+  "kana.ぜ": {
+    "text": "ゼ",
+    "character": "pip"
+  },
+  "kana.ぞ": {
+    "text": "ゾ",
+    "character": "pip"
+  },
+  "kana.だ": {
+    "text": "ダ",
+    "character": "pip"
+  },
+  "kana.ぢ": {
+    "text": "ヂ",
+    "character": "pip"
+  },
+  "kana.づ": {
+    "text": "ヅ",
+    "character": "pip"
+  },
+  "kana.で": {
+    "text": "デ",
+    "character": "pip"
+  },
+  "kana.ど": {
+    "text": "ド",
+    "character": "pip"
+  },
+  "kana.ば": {
+    "text": "バ",
+    "character": "pip"
+  },
+  "kana.び": {
+    "text": "ビ",
+    "character": "pip"
+  },
+  "kana.ぶ": {
+    "text": "ブ",
+    "character": "pip"
+  },
+  "kana.べ": {
+    "text": "ベ",
+    "character": "pip"
+  },
+  "kana.ぼ": {
+    "text": "ボ",
+    "character": "pip"
+  },
+  "kana.ぱ": {
+    "text": "パ",
+    "character": "pip"
+  },
+  "kana.ぴ": {
+    "text": "ピ",
+    "character": "pip"
+  },
+  "kana.ぷ": {
+    "text": "プ",
+    "character": "pip"
+  },
+  "kana.ぺ": {
+    "text": "ペ",
+    "character": "pip"
+  },
+  "kana.ぽ": {
+    "text": "ポ",
+    "character": "pip"
+  },
+  "kana.きゃ": {
+    "text": "キャ",
+    "character": "pip"
+  },
+  "kana.きゅ": {
+    "text": "キュ",
+    "character": "pip"
+  },
+  "kana.きょ": {
+    "text": "キョ",
+    "character": "pip"
+  },
+  "kana.しゃ": {
+    "text": "シャ",
+    "character": "pip"
+  },
+  "kana.しゅ": {
+    "text": "シュ",
+    "character": "pip"
+  },
+  "kana.しょ": {
+    "text": "ショ",
+    "character": "pip"
+  },
+  "kana.ちゃ": {
+    "text": "チャ",
+    "character": "pip"
+  },
+  "kana.ちゅ": {
+    "text": "チュ",
+    "character": "pip"
+  },
+  "kana.ちょ": {
+    "text": "チョ",
+    "character": "pip"
+  },
+  "kana.にゃ": {
+    "text": "ニャ",
+    "character": "pip"
+  },
+  "kana.にゅ": {
+    "text": "ニュ",
+    "character": "pip"
+  },
+  "kana.にょ": {
+    "text": "ニョ",
+    "character": "pip"
+  },
+  "kana.ひゃ": {
+    "text": "ヒャ",
+    "character": "pip"
+  },
+  "kana.ひゅ": {
+    "text": "ヒュ",
+    "character": "pip"
+  },
+  "kana.ひょ": {
+    "text": "ヒョ",
+    "character": "pip"
+  },
+  "kana.みゃ": {
+    "text": "ミャ",
+    "character": "pip"
+  },
+  "kana.みゅ": {
+    "text": "ミュ",
+    "character": "pip"
+  },
+  "kana.みょ": {
+    "text": "ミョ",
+    "character": "pip"
+  },
+  "kana.りゃ": {
+    "text": "リャ",
+    "character": "pip"
+  },
+  "kana.りゅ": {
+    "text": "リュ",
+    "character": "pip"
+  },
+  "kana.りょ": {
+    "text": "リョ",
+    "character": "pip"
+  },
+  "kana.ぎゃ": {
+    "text": "ギャ",
+    "character": "pip"
+  },
+  "kana.ぎゅ": {
+    "text": "ギュ",
+    "character": "pip"
+  },
+  "kana.ぎょ": {
+    "text": "ギョ",
+    "character": "pip"
+  },
+  "kana.じゃ": {
+    "text": "ジャ",
+    "character": "pip"
+  },
+  "kana.じゅ": {
+    "text": "ジュ",
+    "character": "pip"
+  },
+  "kana.じょ": {
+    "text": "ジョ",
+    "character": "pip"
+  },
+  "kana.びゃ": {
+    "text": "ビャ",
+    "character": "pip"
+  },
+  "kana.びゅ": {
+    "text": "ビュ",
+    "character": "pip"
+  },
+  "kana.びょ": {
+    "text": "ビョ",
+    "character": "pip"
+  },
+  "kana.ぴゃ": {
+    "text": "ピャ",
+    "character": "pip"
+  },
+  "kana.ぴゅ": {
+    "text": "ピュ",
+    "character": "pip"
+  },
+  "kana.ぴょ": {
+    "text": "ピョ",
+    "character": "pip"
   }
 }

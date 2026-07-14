@@ -1,0 +1,15 @@
+{
+  "id": "tenten-island",
+  "missions": [
+    { "id": "tt-01", "pattern": "kana", "questions": 5, "params": { "kanas": "がぎぐげご", "pool": "かきくけこがぎぐげご" }, "stars": 3 },
+    { "id": "tt-02", "pattern": "kana", "questions": 5, "params": { "kanas": "ざじずぜぞ", "pool": "さしすせそざじずぜぞ" }, "stars": 3 },
+    { "id": "tt-03", "pattern": "kana", "questions": 5, "params": { "kanas": "だぢづでど", "pool": "たちつてとだぢづでど" }, "stars": 3 },
+    { "id": "tt-04", "pattern": "kana", "questions": 5, "params": { "kanas": "ばびぶべぼ", "pool": "はひふへほばびぶべぼ" }, "stars": 3 },
+    { "id": "tt-05", "pattern": "kana", "questions": 5, "params": { "kanas": "ぱぴぷぺぽ", "pool": "はひふへほばびぶべぼぱぴぷぺぽ" }, "stars": 3 },
+    { "id": "tt-06", "pattern": "kana", "questions": 5, "params": { "kanas": "がざだばぱ", "pool": "がぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽ" }, "stars": 4 },
+    { "id": "tt-07", "pattern": "kana", "questions": 6, "params": { "kanas": ["きゃ", "きゅ", "きょ", "しゃ", "しゅ", "しょ", "ちゃ", "ちゅ", "ちょ"] }, "stars": 4 },
+    { "id": "tt-08", "pattern": "kana", "questions": 6, "params": { "kanas": ["にゃ", "にゅ", "にょ", "ひゃ", "ひゅ", "ひょ", "みゃ", "みゅ", "みょ", "りゃ", "りゅ", "りょ"] }, "stars": 4 },
+    { "id": "tt-09", "pattern": "kana", "questions": 6, "params": { "kanas": ["ぎゃ", "ぎゅ", "ぎょ", "じゃ", "じゅ", "じょ", "びゃ", "びゅ", "びょ", "ぴゃ", "ぴゅ", "ぴょ"] }, "stars": 4 },
+    { "id": "tt-10", "pattern": "kana", "questions": 7, "params": { "kanas": ["が", "ぱ", "じゃ", "きゅ", "べ", "ちょ", "ぴ"], "pool": ["か", "が", "ぱ", "ば", "じゃ", "じ", "きゅ", "きょ", "べ", "ぺ", "ちょ", "ちゃ", "ぴ", "び"] }, "stars": 5 }
+  ]
+}

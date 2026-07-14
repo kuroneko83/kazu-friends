@@ -11,7 +11,8 @@ const WORLD_EMOJI: Record<string, string> = {
   'dino-valley': '🦖',
   'star-station': '🚀',
   'whisker-woods': '🐾',
-  'hiragana-island': '🌸'
+  'hiragana-island': '🌸',
+  'tenten-island': '✨'
 }
 
 // Gentle S-curve path across the map (percent coordinates per node)
@@ -104,7 +105,9 @@ export function WorldMap() {
         })}
         <div className="world-map__guide">
           {world.id === 'star-station' && <Pip size={130} />}
-          {(world.id === 'whisker-woods' || world.id === 'hiragana-island') && <WhiskerCat size={130} color={world.id === 'hiragana-island' ? '#8ECAE6' : '#F4A9C4'} />}
+          {(world.id === 'whisker-woods' || world.id === 'hiragana-island' || world.id === 'tenten-island') && (
+            <WhiskerCat size={130} color={{ 'whisker-woods': '#F4A9C4', 'hiragana-island': '#8ECAE6', 'tenten-island': '#FFD66B' }[world.id]} />
+          )}
           {world.id === 'dino-valley' && <GuideDino size={140} />}
         </div>
       </div>

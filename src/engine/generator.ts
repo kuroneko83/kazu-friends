@@ -145,8 +145,10 @@ export function generateMission(def: MissionDef, seed: number): Question[] {
         break
       }
       case 'kana': {
-        const kanas = [...(def.params.kanas ?? 'あいうえお')]
-        const pool = [...(def.params.pool ?? def.params.kanas ?? 'あいうえお')]
+        const units = (v: string | string[] | undefined, fallback: string): string[] =>
+          Array.isArray(v) ? v : [...(v ?? fallback)]
+        const kanas = units(def.params.kanas, 'あいうえお')
+        const pool = units(def.params.pool ?? def.params.kanas, 'あいうえお')
         // school order on purpose: predictable sequence is kinder while learning
         const kana = kanas[i % kanas.length]
         const distractors = shuffle(rng, pool.filter((k) => k !== kana)).slice(0, 2)

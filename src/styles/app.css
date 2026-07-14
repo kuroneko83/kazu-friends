@@ -983,3 +983,21 @@
   color: #fff;
   opacity: 0.55;
 }
+
+/* ---------- world: tenten island ---------- */
+
+.world-map--tenten-island {
+  background: linear-gradient(180deg, #fdf3d7 0%, #fbe9f0 55%, #e7f0fb 100%);
+}
+
+.world-map--tenten-island .map-node {
+  border-color: #e8b93f;
+}
+
+.world-map--tenten-island .map-node--done {
+  border-color: var(--color-star);
+}
+
+.world-map--tenten-island .map-node--locked {
+  border-color: var(--color-locked);
+}

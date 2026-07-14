@@ -25,6 +25,12 @@ const SCHOOL_STROKES = {
   る: 1, れ: 2, ろ: 1, わ: 2, を: 3, ん: 1
 }
 
+// Voiced forms: dakuten adds 2 short strokes, handakuten adds 1 circle
+const DAKUTEN = { が: 'か', ぎ: 'き', ぐ: 'く', げ: 'け', ご: 'こ', ざ: 'さ', じ: 'し', ず: 'す', ぜ: 'せ', ぞ: 'そ', だ: 'た', ぢ: 'ち', づ: 'つ', で: 'て', ど: 'と', ば: 'は', び: 'ひ', ぶ: 'ふ', べ: 'へ', ぼ: 'ほ' }
+const HANDAKUTEN = { ぱ: 'は', ぴ: 'ひ', ぷ: 'ふ', ぺ: 'へ', ぽ: 'ほ' }
+for (const [voiced, base] of Object.entries(DAKUTEN)) SCHOOL_STROKES[voiced] = SCHOOL_STROKES[base] + 2
+for (const [voiced, base] of Object.entries(HANDAKUTEN)) SCHOOL_STROKES[voiced] = SCHOOL_STROKES[base] + 1
+
 function dist(a, b) {
   return Math.hypot(a[0] - b[0], a[1] - b[1])
 }

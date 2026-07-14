@@ -50,7 +50,9 @@ export function KanaQuest({ question, lang, mode, onResult }: Props) {
       setRevealed(true)
       await speakKana(question.kana)
       await new Promise((r) => setTimeout(r, 900))
-      if (!cancelled) setPhase('trace')
+      if (cancelled) return
+      if (question.kana in strokeData) setPhase('trace')
+      else onResult(true)
     })()
     return () => {
       cancelled = true
@@ -108,10 +110,18 @@ export function KanaQuest({ question, lang, mode, onResult }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase])
 
+  // multi-char units (きゃ…) have no single-glyph stroke data: recognition only
+  const traceable = question.kana in strokeData
+
   function pick(kana: string) {
     if (mode === 'together' || busy.current || phase !== 'pick') return
     if (kana === question.kana) {
-      setPhase('trace')
+      if (traceable) {
+        setPhase('trace')
+      } else {
+        busy.current = true
+        onResult(true)
+      }
     } else {
       busy.current = true
       onResult(false)

@@ -205,5 +205,9 @@
   "kana.trace": {
     "text": "Agora escreve com o dedo!",
     "character": "guide"
+  },
+  "welcome.tenten-island": {
+    "text": "Bem-vindo à Ilha dos Pontinhos!",
+    "character": "guide"
   }
 }
