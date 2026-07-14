@@ -348,5 +348,15 @@
   "pt/eq.decompose?n=16": "audio/pt/eq.decompose.n16.mp3",
   "pt/eq.decompose?n=17": "audio/pt/eq.decompose.n17.mp3",
   "pt/eq.decompose?n=18": "audio/pt/eq.decompose.n18.mp3",
-  "pt/eq.decompose?n=19": "audio/pt/eq.decompose.n19.mp3"
+  "pt/eq.decompose?n=19": "audio/pt/eq.decompose.n19.mp3",
+  "ja/welcome.whisker-woods": "audio/ja/welcome.whisker-woods.mp3",
+  "ja/compare.more": "audio/ja/compare.more.mp3",
+  "ja/compare.fewer": "audio/ja/compare.fewer.mp3",
+  "ja/train.shape": "audio/ja/train.shape.mp3",
+  "ja/train.number": "audio/ja/train.number.mp3",
+  "pt/welcome.whisker-woods": "audio/pt/welcome.whisker-woods.mp3",
+  "pt/compare.more": "audio/pt/compare.more.mp3",
+  "pt/compare.fewer": "audio/pt/compare.fewer.mp3",
+  "pt/train.shape": "audio/pt/train.shape.mp3",
+  "pt/train.number": "audio/pt/train.number.mp3"
 }

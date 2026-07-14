@@ -1,0 +1,15 @@
+{
+  "id": "whisker-woods",
+  "missions": [
+    { "id": "ww-01", "pattern": "compare", "questions": 5, "params": { "min": 1, "max": 5, "compareModes": ["more"] }, "stars": 3 },
+    { "id": "ww-02", "pattern": "train", "questions": 5, "params": { "trainModes": ["shape"], "forms": ["AB"] }, "stars": 3 },
+    { "id": "ww-03", "pattern": "compare", "questions": 5, "params": { "min": 3, "max": 8, "compareModes": ["more"] }, "stars": 3 },
+    { "id": "ww-04", "pattern": "train", "questions": 5, "params": { "trainModes": ["shape"], "forms": ["AB", "AAB"] }, "stars": 3 },
+    { "id": "ww-05", "pattern": "compare", "questions": 6, "params": { "min": 1, "max": 8, "compareModes": ["more", "fewer"] }, "stars": 3 },
+    { "id": "ww-06", "pattern": "train", "questions": 6, "params": { "trainModes": ["number"], "step": 1, "max": 10 }, "stars": 4 },
+    { "id": "ww-07", "pattern": "compare", "questions": 6, "params": { "min": 5, "max": 10, "compareModes": ["more", "fewer"] }, "stars": 4 },
+    { "id": "ww-08", "pattern": "train", "questions": 6, "params": { "trainModes": ["shape"], "forms": ["AAB", "ABC"] }, "stars": 4 },
+    { "id": "ww-09", "pattern": "train", "questions": 6, "params": { "trainModes": ["number"], "step": 2, "max": 20 }, "stars": 4 },
+    { "id": "ww-10", "pattern": "train", "questions": 7, "params": { "trainModes": ["shape", "number"], "forms": ["AB", "AAB", "ABC"], "step": 2, "max": 20 }, "stars": 5 }
+  ]
+}

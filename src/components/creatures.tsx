@@ -78,6 +78,43 @@ export function LittleDino({ size = 96, color = '#7FC8A9' }: { size?: number; co
   )
 }
 
+/** Mimi, the round forest cat (Whisker Woods guide + compare-pattern groups) */
+export function WhiskerCat({ size = 90, color = '#F4A9C4', still = false }: { size?: number; color?: string; still?: boolean }) {
+  const body = (
+    <>
+      {/* ears */}
+      <path d="M34 38 L40 16 L54 32z" fill={color} />
+      <path d="M86 38 L80 16 L66 32z" fill={color} />
+      <path d="M39 33 L42 22 L50 31z" fill="#FBD5E4" />
+      <path d="M81 33 L78 22 L70 31z" fill="#FBD5E4" />
+      <circle cx="60" cy="70" r="40" fill={color} />
+      <ellipse cx="60" cy="84" rx="24" ry="18" fill="#FFF4F8" />
+      {/* eyes */}
+      <circle cx="46" cy="60" r="9" fill="#fff" />
+      <circle cx="74" cy="60" r="9" fill="#fff" />
+      <circle cx="48" cy="62" r="4.5" fill="#3D3A4B" />
+      <circle cx="72" cy="62" r="4.5" fill="#3D3A4B" />
+      {/* nose + mouth */}
+      <path d="M57 72 L63 72 L60 77z" fill="#E8828F" />
+      <path d="M52 82 q8 7 16 0" stroke="#3D3A4B" strokeWidth="3.5" fill="none" strokeLinecap="round" />
+      {/* whiskers */}
+      <path d="M20 68 h16 M20 78 h16 M84 68 h16 M84 78 h16" stroke="#3D3A4B" strokeWidth="3" strokeLinecap="round" opacity="0.6" />
+    </>
+  )
+  if (still) {
+    return (
+      <svg viewBox="0 0 120 120" width={size} height={size} aria-hidden>
+        {body}
+      </svg>
+    )
+  }
+  return (
+    <motion.svg viewBox="0 0 120 120" width={size} height={size} {...bounce} aria-hidden>
+      {body}
+    </motion.svg>
+  )
+}
+
 /** A fruit for the feed pattern */
 export function Berry({ size = 72 }: { size?: number }) {
   return (

@@ -136,6 +136,33 @@ test('star station: switch worlds and solve an equation mission', async ({ page 
   await expect(page.getByTestId('mission-ss-02')).toBeEnabled()
 })
 
+test('whisker woods: compare and train missions solvable', async ({ page }) => {
+  await stubSpeech(page)
+  await completeOnboarding(page)
+
+  await page.getByTestId('world-whisker-woods').click()
+  await expect(page.getByTestId('world-map')).toContainText('Bosque dos Gatinhos')
+
+  // ww-01: tap the group with more cats (5 questions)
+  await page.getByTestId('mission-ww-01').click({ force: true })
+  for (let q = 0; q < 5; q++) {
+    await expect(page.getByTestId('mission-stage')).toHaveAttribute('data-question', String(q))
+    const answer = await page.getByTestId('pattern-compare').getAttribute('data-answer')
+    await page.getByTestId(`group-${answer}`).click()
+  }
+  await expect(page.getByTestId('session-end')).toBeVisible({ timeout: 20_000 })
+  await page.getByTestId('back-to-map').click()
+
+  // ww-02 unlocked: complete the shape-pattern train (5 questions)
+  await page.getByTestId('mission-ww-02').click({ force: true })
+  for (let q = 0; q < 5; q++) {
+    await expect(page.getByTestId('mission-stage')).toHaveAttribute('data-question', String(q))
+    const answer = await page.getByTestId('pattern-train').getAttribute('data-answer')
+    await page.getByTestId(`choice-${answer}`).click()
+  }
+  await expect(page.getByTestId('session-end')).toBeVisible({ timeout: 20_000 })
+})
+
 test('touch targets on the world map are at least 64px', async ({ page }) => {
   await stubSpeech(page)
   await completeOnboarding(page)

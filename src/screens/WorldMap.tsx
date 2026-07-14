@@ -4,12 +4,13 @@ import { speak } from '../audio/speak'
 import { useGameStore } from '../state/gameStore'
 import { StarBank } from '../components/StarBank'
 import { LanguageToggle } from '../components/LanguageToggle'
-import { GuideDino, Pip, Star } from '../components/creatures'
+import { GuideDino, Pip, Star, WhiskerCat } from '../components/creatures'
 import { t } from '../i18n'
 
 const WORLD_EMOJI: Record<string, string> = {
   'dino-valley': '🦖',
-  'star-station': '🚀'
+  'star-station': '🚀',
+  'whisker-woods': '🐾'
 }
 
 // Gentle S-curve path across the map (percent coordinates per node)
@@ -101,7 +102,9 @@ export function WorldMap() {
           )
         })}
         <div className="world-map__guide">
-          {world.id === 'star-station' ? <Pip size={130} /> : <GuideDino size={140} />}
+          {world.id === 'star-station' && <Pip size={130} />}
+          {world.id === 'whisker-woods' && <WhiskerCat size={130} />}
+          {world.id === 'dino-valley' && <GuideDino size={140} />}
         </div>
       </div>
     </div>

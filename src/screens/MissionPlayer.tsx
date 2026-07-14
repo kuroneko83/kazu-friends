@@ -11,6 +11,8 @@ import { TapCount, type PatternMode } from '../patterns/TapCount'
 import { FeedCreature } from '../patterns/FeedCreature'
 import { NumberLineHop } from '../patterns/NumberLineHop'
 import { Equation } from '../patterns/Equation'
+import { Compare } from '../patterns/Compare'
+import { Train } from '../patterns/Train'
 
 /** ?seed=N pins question generation for Playwright; otherwise time-random */
 function missionSeed(missionId: string): number {
@@ -33,6 +35,10 @@ function promptFor(q: Question): { lineId: string; params?: Record<string, numbe
     case 'equation':
       if (q.op === 'decompose') return { lineId: 'eq.decompose', params: { n: q.a } }
       return { lineId: q.op === 'add' ? 'eq.add' : 'eq.sub', params: { a: q.a, b: q.b } }
+    case 'compare':
+      return { lineId: q.mode === 'more' ? 'compare.more' : 'compare.fewer' }
+    case 'train':
+      return { lineId: q.mode === 'shape' ? 'train.shape' : 'train.number' }
   }
 }
 
@@ -131,6 +137,12 @@ export function MissionPlayer() {
           )}
           {question.pattern === 'equation' && (
             <Equation question={question} lang={lang} mode={mode} onResult={handleResult} />
+          )}
+          {question.pattern === 'compare' && (
+            <Compare question={question} lang={lang} mode={mode} onResult={handleResult} />
+          )}
+          {question.pattern === 'train' && (
+            <Train question={question} lang={lang} mode={mode} onResult={handleResult} />
           )}
         </div>
       )}

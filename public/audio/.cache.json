@@ -348,5 +348,15 @@
   "pt/eq.decompose?n=16": "cf528c3e9f3328d5",
   "pt/eq.decompose?n=17": "e830c66747183812",
   "pt/eq.decompose?n=18": "1b43d60f569df1b3",
-  "pt/eq.decompose?n=19": "150faf9e1616a8e5"
+  "pt/eq.decompose?n=19": "150faf9e1616a8e5",
+  "ja/welcome.whisker-woods": "2301df68f1d1f48b",
+  "ja/compare.more": "93e62a313ad8af5c",
+  "ja/compare.fewer": "ac29c1b62b3ca6f2",
+  "ja/train.shape": "0615be301dde8085",
+  "ja/train.number": "316e72845c5fa186",
+  "pt/welcome.whisker-woods": "34210b390af0903d",
+  "pt/compare.more": "c1c0534cb4c688be",
+  "pt/compare.fewer": "8e9ece13bf4d65e1",
+  "pt/train.shape": "93ec04cb84a5665b",
+  "pt/train.number": "ad4aa5682d1e5105"
 }

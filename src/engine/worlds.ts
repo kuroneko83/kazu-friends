@@ -1,8 +1,9 @@
 import dinoValley from '../../content/missions/dino-valley.json'
 import starStation from '../../content/missions/star-station.json'
+import whiskerWoods from '../../content/missions/whisker-woods.json'
 import type { MissionDef, WorldDef } from './types'
 
-export const worlds: WorldDef[] = [dinoValley as WorldDef, starStation as WorldDef]
+export const worlds: WorldDef[] = [dinoValley as WorldDef, starStation as WorldDef, whiskerWoods as WorldDef]
 
 export function worldById(id: string): WorldDef {
   return worlds.find((w) => w.id === id) ?? worlds[0]

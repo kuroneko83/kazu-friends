@@ -1,4 +1,4 @@
-export type PatternId = 'tapCount' | 'feed' | 'numberLineHop' | 'equation'
+export type PatternId = 'tapCount' | 'feed' | 'numberLineHop' | 'equation' | 'compare' | 'train'
 
 export type EquationOp = 'add' | 'sub' | 'decompose'
 
@@ -42,7 +42,28 @@ export interface EquationQuestion {
   choices: number[]
 }
 
-export type Question = TapCountQuestion | FeedQuestion | HopQuestion | EquationQuestion
+/** Pattern 5: two groups side by side — tap the one with more (or fewer) */
+export interface CompareQuestion {
+  pattern: 'compare'
+  mode: 'more' | 'fewer'
+  left: number
+  right: number
+  answer: 'left' | 'right'
+}
+
+/** Pattern 6: complete the sequence on the train — repeating shapes or a number series */
+export interface TrainQuestion {
+  pattern: 'train'
+  mode: 'shape' | 'number'
+  /** shape mode: shape ids (indexes into the pattern's shape set); number mode: the numbers shown */
+  sequence: number[]
+  /** shape mode: length of the repeating unit, for the hint grouping */
+  unitLen?: number
+  answer: number
+  choices: number[]
+}
+
+export type Question = TapCountQuestion | FeedQuestion | HopQuestion | EquationQuestion | CompareQuestion | TrainQuestion
 
 export interface MissionDef {
   id: string
@@ -55,6 +76,12 @@ export interface MissionDef {
     max?: number
     modes?: Array<'goto' | 'forward' | 'back'>
     ops?: EquationOp[]
+    compareModes?: Array<'more' | 'fewer'>
+    trainModes?: Array<'shape' | 'number'>
+    /** shape-train repeating forms, e.g. ["AB", "AAB", "ABC"] */
+    forms?: string[]
+    /** number-train increment (1 = count on, 2 = count by twos) */
+    step?: number
   }
   stars: number
 }

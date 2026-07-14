@@ -98,6 +98,52 @@ export function generateMission(def: MissionDef, seed: number): Question[] {
         questions.push({ pattern: 'equation', op, a, b, answer, choices: numeralChoices(rng, answer, choiceMax) })
         break
       }
+      case 'compare': {
+        const min = def.params.min ?? 1
+        const max = def.params.max ?? 5
+        const modes = def.params.compareModes ?? ['more']
+        const mode = modes[randInt(rng, 0, modes.length - 1)]
+        const left = randInt(rng, min, max)
+        let right = randInt(rng, min, max)
+        if (right === left) right = right === max ? Math.max(min, right - 1) : right + 1
+        const answer = (mode === 'more') === left > right ? 'left' : 'right'
+        questions.push({ pattern: 'compare', mode, left, right, answer })
+        break
+      }
+      case 'train': {
+        const modes = def.params.trainModes ?? ['shape']
+        const mode = modes[randInt(rng, 0, modes.length - 1)]
+        if (mode === 'shape') {
+          const forms = def.params.forms ?? ['AB']
+          const form = forms[randInt(rng, 0, forms.length - 1)]
+          const letters = form.split('')
+          const uniq = [...new Set(letters)]
+          // assign each pattern letter a random shape from the 4-shape set
+          const pool = shuffle(rng, [0, 1, 2, 3]).slice(0, uniq.length)
+          const unit = letters.map((l) => pool[uniq.indexOf(l)])
+          const shown = 5
+          const sequence = Array.from({ length: shown }, (_, i) => unit[i % unit.length])
+          const answer = unit[shown % unit.length]
+          // choices: the pattern's own shapes plus one stray, so guessing isn't 50/50
+          const stray = [0, 1, 2, 3].find((s) => !pool.includes(s))
+          const options = [...new Set([answer, ...pool, ...(stray === undefined ? [] : [stray])])].slice(0, 3)
+          questions.push({ pattern: 'train', mode, sequence, unitLen: unit.length, answer, choices: shuffle(rng, options) })
+        } else {
+          const step = def.params.step ?? 1
+          const max = def.params.max ?? 10
+          const shown = 4
+          let start = randInt(rng, 1, Math.max(1, max - step * shown))
+          let answer = start + shown * step
+          if (answer === previousAnswer) {
+            start = start === 1 ? start + 1 : start - 1
+            answer = start + shown * step
+          }
+          previousAnswer = answer
+          const sequence = Array.from({ length: shown }, (_, i) => start + i * step)
+          questions.push({ pattern: 'train', mode, sequence, answer, choices: numeralChoices(rng, answer, max + step) })
+        }
+        break
+      }
       case 'numberLineHop': {
         const max = def.params.max ?? 10
         const modes = def.params.modes ?? ['goto']
