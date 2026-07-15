@@ -10,3 +10,4 @@ test-results/
 math_worksheets/
 *.code-workspace
 docs_evidencias/
+.vercel/
