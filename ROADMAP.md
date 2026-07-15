@@ -15,11 +15,12 @@ him loses the game; the game losing him loses the mission.
 | | branch | deploys to | audience |
 |---|---|---|---|
 | **Production** | `main` | https://kuroneko83.github.io/kazu-friends/ | his tablet (installed PWA) |
-| **Staging** | `dev` | Vercel (`npm run deploy:staging` from a dev checkout) | dad only — bug hunting, pacing decisions |
+| **Staging** | `dev` | https://kazu-friends-staging.vercel.app | dad only — bug hunting, pacing decisions |
 
-Staging moved from GitHub Pages to Vercel (July 2026): the staging repo went
-private, which kills Pages on a free account. Deploys are manual via the CLI
-for now; add a `VERCEL_TOKEN` repo secret to restore push-to-deploy automation.
+Staging runs on Vercel (July 2026), git-connected to this repo: **pushing to
+`dev` auto-builds on Vercel's servers** — no local upload, immune to flaky
+routes. The old GitHub Pages staging repo is private/retired. `npm run
+deploy:staging` remains as a manual CLI fallback.
 
 Rules:
 - `main` never receives a feature he isn't ready for; fixes to live content go
