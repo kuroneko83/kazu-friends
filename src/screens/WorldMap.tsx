@@ -48,7 +48,10 @@ export function WorldMap() {
     if (greetedWorld.current === world.id) return
     const first = greetedWorld.current === null
     greetedWorld.current = world.id
-    void speak(welcomeLine(world.id), { lang }).then(() => (first ? speak('map.pick', { lang }) : undefined))
+    void speak(welcomeLine(world.id), { lang }).then(() => {
+      // don't let the chained hint leak into a mission the child already opened
+      if (first && useGameStore.getState().screen === 'map') return speak('map.pick', { lang })
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [world.id])
 

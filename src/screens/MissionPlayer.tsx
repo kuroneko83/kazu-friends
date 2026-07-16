@@ -65,11 +65,24 @@ export function MissionPlayer() {
 
   const question = questions[qIndex]
 
+  // Prompt plus, for kana questions, the kana sound — strictly AFTER the
+  // prompt finishes, never racing it (the old fixed delay cut sentences off)
+  function speakPrompt(cancelled?: () => boolean) {
+    const { lineId, params } = promptFor(question)
+    return speak(lineId, { lang, params }).then(() => {
+      if (cancelled?.()) return
+      if (question.pattern === 'kana') return speak(`kana.${question.kana}`, { lang: 'ja' })
+    })
+  }
+
   // Speak the prompt whenever a question starts (or restarts after a miss)
   useEffect(() => {
     if (chest || mode === 'together') return
-    const { lineId, params } = promptFor(question)
-    void speak(lineId, { lang, params })
+    let cancelled = false
+    void speakPrompt(() => cancelled)
+    return () => {
+      cancelled = true
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [qIndex, mode, chest])
 
@@ -130,10 +143,7 @@ export function MissionPlayer() {
           <button
             className="mission__replay"
             data-testid="replay-prompt"
-            onClick={() => {
-              const { lineId, params } = promptFor(question)
-              void speak(lineId, { lang, params })
-            }}
+            onClick={() => void speakPrompt()}
           >
             🔊
           </button>

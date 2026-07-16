@@ -33,12 +33,8 @@ export function KanaQuest({ question, lang, mode, onResult }: Props) {
   const writer = useRef<ReturnType<typeof HanziWriter.create> | null>(null)
   const busy = useRef(false)
 
-  // say the kana after the mission player's prompt line has had time to finish
-  useEffect(() => {
-    const id = setTimeout(() => void speakKana(question.kana), mode === 'play' ? 2400 : 600)
-    return () => clearTimeout(id)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // the kana sound itself is spoken by MissionPlayer, chained after the prompt;
+  // here only the replay button and together-mode speak it
 
   // "Solve it together": reveal the right card while saying it, then trace as usual
   useEffect(() => {

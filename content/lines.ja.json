@@ -120,7 +120,7 @@
     "character": "guide"
   },
   "feed.prompt": {
-    "text": "ダイノに くだものを {n}こ あげてね!",
+    "text": "ダイノに くだものを {n:c}こ あげてね!",
     "character": "guide"
   },
   "eq.add": {
@@ -140,11 +140,11 @@
     "character": "guide"
   },
   "hop.forward": {
-    "text": "{n}こ まえに ジャンプ! どこに ついたかな?",
+    "text": "{n:c}こ まえに ジャンプ! どこに ついたかな?",
     "character": "guide"
   },
   "hop.back": {
-    "text": "{n}こ うしろに ジャンプ! どこに ついたかな?",
+    "text": "{n:c}こ うしろに ジャンプ! どこに ついたかな?",
     "character": "guide"
   },
   "praise.1": {
@@ -196,7 +196,7 @@
     "character": "guide"
   },
   "kana.pick": {
-    "text": "よくきいてね! どのじかな?",
+    "text": "よく きいてね! どの もじ かな?",
     "character": "guide"
   },
   "kana.trace": {

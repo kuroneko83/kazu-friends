@@ -13,15 +13,19 @@ interface Line {
 
 // Must mirror scripts/generate-tts.mjs
 const ptNumberWords = ['zero', 'um', 'dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove', 'dez', 'onze', 'doze', 'treze', 'quatorze', 'quinze', 'dezesseis', 'dezessete', 'dezoito', 'dezenove', 'vinte']
+const jaNumberWords = ['ゼロ', 'いち', 'に', 'さん', 'よん', 'ご', 'ろく', 'なな', 'はち', 'きゅう', 'じゅう', 'じゅういち', 'じゅうに', 'じゅうさん', 'じゅうよん', 'じゅうご', 'じゅうろく', 'じゅうなな', 'じゅうはち', 'じゅうきゅう', 'にじゅう']
 
 /**
- * pt-BR TTS reads bare digits with masculine defaults ("2 frutinhas" → "dois"),
- * so numbers are spelled out with the gender the template asks for: {n} → "dois", {n:f} → "duas".
+ * TTS engines misread bare digits: pt-BR defaults to masculine ("2 frutinhas"
+ * → "dois"), and ja reads an isolated "1" as English "wan". Numbers are
+ * spelled out per the template's marker — {n:f} feminine (pt), {n:c} counter
+ * context (ja keeps the digit: "3こ" → さんこ reads correctly), plain {n} word.
  */
-function numberWord(lang: Lang, n: number, gender?: string): string {
+function numberWord(lang: Lang, n: number, spec?: string): string {
+  if (lang === 'ja') return spec === 'c' ? String(n) : jaNumberWords[n] ?? String(n)
   if (lang !== 'pt') return String(n)
-  if (n === 1) return gender === 'f' ? 'uma' : 'um'
-  if (n === 2) return gender === 'f' ? 'duas' : 'dois'
+  if (n === 1) return spec === 'f' ? 'uma' : 'um'
+  if (n === 2) return spec === 'f' ? 'duas' : 'dois'
   return ptNumberWords[n] ?? String(n)
 }
 
@@ -104,10 +108,10 @@ export function speak(lineId: LineId | string, opts: SpeakOptions): Promise<void
   }
 
   let text = line.variants?.[suffix.slice(1)] ?? line.text
-  text = text.replace(/\{(\w+)(?::([fm]))?\}/g, (match, key: string, gender?: string) => {
+  text = text.replace(/\{(\w+)(?::([fmc]))?\}/g, (match, key: string, spec?: string) => {
     const value = (opts.params ?? {})[key]
     if (value === undefined) return match
-    return typeof value === 'number' ? numberWord(opts.lang, value, gender) : String(value)
+    return typeof value === 'number' ? numberWord(opts.lang, value, spec) : String(value)
   })
 
   if (!('speechSynthesis' in window)) return Promise.resolve()

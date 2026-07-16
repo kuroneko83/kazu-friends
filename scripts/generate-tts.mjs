@@ -60,15 +60,19 @@ const paramValues = {
 
 // Must mirror src/audio/speak.ts
 const ptNumberWords = ['zero', 'um', 'dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove', 'dez', 'onze', 'doze', 'treze', 'quatorze', 'quinze', 'dezesseis', 'dezessete', 'dezoito', 'dezenove', 'vinte']
+const jaNumberWords = ['ゼロ', 'いち', 'に', 'さん', 'よん', 'ご', 'ろく', 'なな', 'はち', 'きゅう', 'じゅう', 'じゅういち', 'じゅうに', 'じゅうさん', 'じゅうよん', 'じゅうご', 'じゅうろく', 'じゅうなな', 'じゅうはち', 'じゅうきゅう', 'にじゅう']
 
 /**
- * pt-BR TTS reads bare digits with masculine defaults ("2 frutinhas" → "dois"),
- * so numbers are spelled out with the gender the template asks for: {n} → "dois", {n:f} → "duas".
+ * TTS engines misread bare digits: pt-BR defaults to masculine ("2 frutinhas"
+ * → "dois"), and ja reads an isolated "1" as English "wan". Numbers are
+ * spelled out per the template's marker — {n:f} feminine (pt), {n:c} counter
+ * context (ja keeps the digit: "3こ" → さんこ reads correctly), plain {n} word.
  */
-function numberWord(lang, n, gender) {
+function numberWord(lang, n, spec) {
+  if (lang === 'ja') return spec === 'c' ? String(n) : jaNumberWords[n] ?? String(n)
   if (lang !== 'pt') return String(n)
-  if (n === 1) return gender === 'f' ? 'uma' : 'um'
-  if (n === 2) return gender === 'f' ? 'duas' : 'dois'
+  if (n === 1) return spec === 'f' ? 'uma' : 'um'
+  if (n === 2) return spec === 'f' ? 'duas' : 'dois'
   return ptNumberWords[n] ?? String(n)
 }
 
@@ -106,8 +110,8 @@ for (const lang of ['ja', 'pt']) {
           file: `${id}.${entries.map(([k, v]) => `${k}${v}`).join('.')}.mp3`,
           text:
             line.variants?.[suffix] ??
-            line.text.replace(/\{(\w+)(?::([fm]))?\}/g, (match, key, gender) =>
-              params[key] === undefined ? match : numberWord(lang, params[key], gender)
+            line.text.replace(/\{(\w+)(?::([fmc]))?\}/g, (match, key, spec) =>
+              params[key] === undefined ? match : numberWord(lang, params[key], spec)
             )
         }
       })
