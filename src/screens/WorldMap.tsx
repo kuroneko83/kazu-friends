@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { worlds, worldById } from '../engine/worlds'
 import { speak } from '../audio/speak'
+import { requestFullscreen } from '../fullscreen'
 import { useGameStore } from '../state/gameStore'
 import { StarBank } from '../components/StarBank'
 import { LanguageToggle } from '../components/LanguageToggle'
@@ -100,7 +101,10 @@ export function WorldMap() {
               data-testid={`mission-${mission.id}`}
               style={{ left: `${PATH[i].x}%`, top: `${PATH[i].y}%` }}
               disabled={!unlocked}
-              onClick={() => startMission(mission.id)}
+              onClick={() => {
+                requestFullscreen()
+                startMission(mission.id)
+              }}
             >
               {done ? <Star size={44} /> : <span className="map-node__number">{i + 1}</span>}
             </button>
